@@ -1,10 +1,11 @@
-import '../../stencil.core';
 import { IOMAMatcherBody } from './interfaces';
+import { HTMLStencilElement } from '../../stencil.core';
 interface ICapturedImage {
     data: string;
     file: File;
 }
 export declare class OpenbioFaceOmaComponent {
+    private MODEL_URL;
     private defaultWidth;
     private defaultHeight;
     projectId: string;
@@ -42,25 +43,26 @@ export declare class OpenbioFaceOmaComponent {
     componentWillLoad(): Promise<void>;
     componentDidLoad(): void;
     screenUpdate(): void;
+    startFaceApi(): void;
     getDeviceList(): void;
     startCamera(): void;
     stopVideo(): void;
     getVideoAspectRatio(): number;
-    getImageFromVideo(): Promise<{}>;
+    getImageFromVideo(): Promise<unknown>;
     setResultImage(): void;
     getCaptureText(): any;
     confirmPicture(): any;
     showLivenessError(): void;
     getOMAMatcherBody(): IOMAMatcherBody;
     getOMALivenessBody(): FormData;
-    checkLiveness(): Promise<{}>;
+    checkLiveness(): Promise<unknown>;
     confirmImageUpdate(): Promise<void>;
     updateRecord(): Promise<any>;
-    verifyRecordIdExistency(): Promise<{}>;
+    verifyRecordIdExistency(): Promise<unknown>;
     register(): Promise<any>;
     verify(): Promise<any>;
     takeSnapShot(): Promise<void>;
     setDevice(event: any): void;
-    render(): JSX.Element;
+    render(): any;
 }
 export {};

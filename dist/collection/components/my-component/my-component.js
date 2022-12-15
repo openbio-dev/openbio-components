@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 import { format } from '../../utils/utils';
 export class MyComponent {
     getText() {
@@ -10,19 +11,63 @@ export class MyComponent {
     }
     static get is() { return "my-component"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["my-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["my-component.css"]
+    }; }
     static get properties() { return {
         "first": {
-            "type": String,
-            "attr": "first"
-        },
-        "last": {
-            "type": String,
-            "attr": "last"
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": "The first name"
+            },
+            "attribute": "first",
+            "reflect": false
         },
         "middle": {
-            "type": String,
-            "attr": "middle"
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": "The middle name"
+            },
+            "attribute": "middle",
+            "reflect": false
+        },
+        "last": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": "The last name"
+            },
+            "attribute": "last",
+            "reflect": false
         }
     }; }
-    static get style() { return "/**style-placeholder:my-component:**/"; }
 }

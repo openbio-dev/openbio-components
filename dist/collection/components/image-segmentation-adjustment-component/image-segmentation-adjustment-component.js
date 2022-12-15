@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 import { TranslationUtils } from '../../locales/translation';
 import hexToRgba from 'hex-to-rgba';
 export class ImageSegmentationAdjustmentComponent {
@@ -41,7 +42,7 @@ export class ImageSegmentationAdjustmentComponent {
         this.overlayImage = new Image();
         this.overlayImage.src = 'data:image/jpeg;base64, ' + this.segmentedImage;
         this.backgroundImage.onload = async () => {
-            let width = 326;
+            let width = 326; // this.backgroundImage.width;
             let height = 435;
             this.backgroundImage.height;
             this.backgroundCanvas.width = width;
@@ -363,125 +364,163 @@ export class ImageSegmentationAdjustmentComponent {
     }
     static get is() { return "image-segmentation-adjustment-component"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["image-segmentation-adjustment-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["image-segmentation-adjustment-component.css"]
+    }; }
     static get properties() { return {
-        "area_select": {
-            "state": true
-        },
-        "backgroundCanvas": {
-            "state": true
-        },
-        "backgroundContext": {
-            "state": true
-        },
-        "backgroundImage": {
-            "state": true
-        },
-        "brush_radius": {
-            "state": true
-        },
-        "color": {
-            "state": true
-        },
-        "componentContainer": {
-            "elementRef": true
-        },
-        "currentElementTag": {
-            "type": String,
-            "attr": "current-element-tag"
-        },
-        "eraser_radius": {
-            "state": true
-        },
-        "imageAdjustmentCallback": {
-            "type": "Any",
-            "attr": "image-adjustment-callback"
-        },
-        "imagesArray": {
-            "state": true
-        },
-        "index": {
-            "state": true
-        },
-        "inputColor": {
-            "state": true
-        },
-        "isPress": {
-            "state": true
-        },
-        "old": {
-            "state": true
-        },
         "originalImage": {
-            "type": "Any",
-            "attr": "original-image"
-        },
-        "overlayCanvas": {
-            "state": true
-        },
-        "overlayContext": {
-            "state": true
-        },
-        "overlayImage": {
-            "state": true
-        },
-        "paint_radius": {
-            "state": true
-        },
-        "parentComponentContext": {
-            "type": "Any",
-            "attr": "parent-component-context"
-        },
-        "parentElementTag": {
-            "type": String,
-            "attr": "parent-element-tag"
-        },
-        "radius": {
-            "state": true
-        },
-        "rangeContainer": {
-            "state": true
-        },
-        "redo_disable": {
-            "state": true
-        },
-        "restorer_radius": {
-            "state": true
-        },
-        "saveAdjustedImageCallback": {
-            "type": "Any",
-            "attr": "save-adjusted-image-callback"
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "original-image",
+            "reflect": false
         },
         "segmentedImage": {
-            "type": "Any",
-            "attr": "segmented-image"
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "segmented-image",
+            "reflect": false
         },
-        "selected_area": {
-            "state": true
+        "parentElementTag": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "parent-element-tag",
+            "reflect": false
         },
-        "tool": {
-            "state": true
+        "currentElementTag": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "current-element-tag",
+            "reflect": false
         },
-        "tooltip": {
-            "state": true
+        "parentComponentContext": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "parent-component-context",
+            "reflect": false
         },
-        "translations": {
-            "state": true
+        "imageAdjustmentCallback": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "image-adjustment-callback",
+            "reflect": false
         },
-        "undo_disabled": {
-            "state": true
-        },
-        "x_old": {
-            "state": true
-        },
-        "x_select": {
-            "state": true
-        },
-        "y_old": {
-            "state": true
-        },
-        "y_select": {
-            "state": true
+        "saveAdjustedImageCallback": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "save-adjusted-image-callback",
+            "reflect": false
         }
     }; }
-    static get style() { return "/**style-placeholder:image-segmentation-adjustment-component:**/"; }
+    static get states() { return {
+        "translations": {},
+        "tool": {},
+        "backgroundCanvas": {},
+        "overlayCanvas": {},
+        "area_select": {},
+        "backgroundContext": {},
+        "overlayContext": {},
+        "isPress": {},
+        "backgroundImage": {},
+        "overlayImage": {},
+        "imagesArray": {},
+        "index": {},
+        "color": {},
+        "undo_disabled": {},
+        "redo_disable": {},
+        "x_select": {},
+        "y_select": {},
+        "x_old": {},
+        "y_old": {},
+        "old": {},
+        "brush_radius": {},
+        "eraser_radius": {},
+        "paint_radius": {},
+        "restorer_radius": {},
+        "radius": {},
+        "inputColor": {},
+        "rangeContainer": {},
+        "tooltip": {},
+        "selected_area": {}
+    }; }
+    static get elementRef() { return "componentContainer"; }
 }

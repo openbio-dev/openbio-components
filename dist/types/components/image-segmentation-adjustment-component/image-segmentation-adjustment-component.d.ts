@@ -1,4 +1,4 @@
-import '../../stencil.core';
+import { HTMLStencilElement } from '../../stencil.core';
 export declare class ImageSegmentationAdjustmentComponent {
     componentContainer: HTMLStencilElement;
     originalImage: any;
@@ -48,5 +48,5 @@ export declare class ImageSegmentationAdjustmentComponent {
     updateBrushRadius(): void;
     colorPicker(): void;
     updateColor(): void;
-    render(): JSX.Element;
+    render(): any;
 }

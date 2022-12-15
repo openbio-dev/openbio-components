@@ -1,12 +1,15 @@
+import { h } from '@stencil/core';
 import WS from '../../utils/websocket';
 import { showImage } from '../../utils/canvas';
 import { getAppConfig } from '../../utils/api';
 import { loadFingerForm, loadRoiCroppedForm, loadPalmForm, savePalm, saveFingers } from './api';
 import { getAnomalies } from '../openbio-finger-component/api';
+// import { getDevices, setDevice , open, scan, close  } from './scannerApi';
 import { notify } from '../../utils/notifier';
 import constants from '../../utils/constants';
 import { TranslationUtils } from '../../locales/translation';
 import Swal from 'sweetalert2/dist/sweetalert2.all.min.js';
+// const BASE64_IMAGE = 'data:image/charset=UTF-8;bmp;base64,';
 var FORM_TYPE;
 (function (FORM_TYPE) {
     FORM_TYPE[FORM_TYPE["UNDEFINED"] = -1] = "UNDEFINED";
@@ -99,6 +102,7 @@ export class OpenbioSignatureComponentDetails {
             croppedPalm: {},
             croppedPalms: [],
             palms: [],
+            // Canvas box control vars
             lineOffset: 8,
             anchrSize: 7,
             clickedArea: { box: -1, pos: 'o' },
@@ -150,7 +154,27 @@ export class OpenbioSignatureComponentDetails {
         this.payload.action = "scanner-start";
         this.ws.respondToDeviceWS(this.payload);
     }
+    // startService() {
+    //   this.payload.action = "scanner-start-service";
+    //   this.ws.respondToDeviceWS(this.payload);
+    // }
+    // getDeviceList() {
+    //   getDevices().then((result) => {
+    //     this.deviceList = result;
+    //   })
+    // }
+    // setDevice() {
+    //   setDevice(1).then((result) => {
+    //     console.log(result);
+    //   })
+    // }
+    // setDevice() {
+    //   this.payload.action = "scanner-set-device";
+    //   this.payload.data.deviceName = this.selectedDevice;
+    //   this.ws.respondToDeviceWS(this.payload);
+    // }
     async capture() {
+        // await open();
         this.showLoader = true;
         if (!this.canCapture()) {
             notify(this.componentContainer, "warning", this.translations.SELECT_TOKEN_IF_PALMAR);
@@ -159,6 +183,22 @@ export class OpenbioSignatureComponentDetails {
         this.showLoader = true;
         this.payload.action = "scanner-scan";
         this.ws.respondToDeviceWS(this.payload);
+        // scannerScan().then((result) => {
+        //   function _base64ToArrayBuffer(base64) {
+        //     var binary_string = window.atob(base64);
+        //     var len = binary_string.length;
+        //     var bytes = new Uint8Array(len);
+        //     for (var i = 0; i < len; i++) {
+        //         bytes[i] = binary_string.charCodeAt(i);
+        //     }
+        //     return bytes.buffer;
+        //   }
+        //   const buffer = _base64ToArrayBuffer(result.data);
+        //   const tempFile: any = new File([buffer], "temp_scan.bmp", {
+        //     type: "image/bmp",
+        //   });
+        //   this.loadForm(tempFile);
+        // });
     }
     close() {
         this.payload.action = "scanner-close";
@@ -227,6 +267,12 @@ export class OpenbioSignatureComponentDetails {
                     };
                 }
                 else if (this.detached) {
+                    // this.emitLoadInformation();
+                    // const checkSessionInterval = setInterval(() => {
+                    //   if (this.backendSession) {
+                    //     clearInterval(checkSessionInterval);
+                    //   }
+                    // }, 200);
                 }
                 else {
                     if (this.tempPerson) {
@@ -283,6 +329,8 @@ export class OpenbioSignatureComponentDetails {
                     }
                 });
                 this.start();
+                // this.startService();
+                // this.getDeviceList();
                 this.showLoader = false;
                 this.captureInput.onchange = () => {
                     if (this.captureInput.files.length > 0) {
@@ -476,7 +524,7 @@ export class OpenbioSignatureComponentDetails {
         image.onload = () => {
             this.toggleFormModal();
             this.form.canvas.width = this.formType === FORM_TYPE.PALMAR && this.palmFormType === PALM_FORM_TYPE.SINGLE_PALM ? 420 : 700;
-            this.form.canvas.height = (image.height * this.form.canvas.width) / image.width;
+            this.form.canvas.height = (image.height * this.form.canvas.width) / image.width; /* this.formType === FORM_TYPE.DECADACTILAR ? 327 :  243; */
             this.screenUpdate();
             setTimeout(() => {
                 this.form.file = file;
@@ -812,7 +860,7 @@ export class OpenbioSignatureComponentDetails {
         this.payload.action = "close-component";
         this.payload.data = {
             type: "scanner",
-            owner: "default-user"
+            owner: "default-user" // #TODO replace this with a authenticated user
         };
         this.ws.respondToDeviceWS(this.payload);
     }
@@ -936,6 +984,7 @@ export class OpenbioSignatureComponentDetails {
             croppedPalm: {},
             croppedPalms: [],
             palms: this.form.palms,
+            // Canvas box control vars
             lineOffset: 8,
             anchrSize: 7,
             clickedArea: { box: -1, pos: 'o' },
@@ -1287,6 +1336,11 @@ export class OpenbioSignatureComponentDetails {
         });
     }
     render() {
+        // const deviceList = (this.deviceList || []).map((device) => {
+        //   return (
+        //     <option value={ device.id } selected={ this.selectedDevice === device.id }>{ device.name }</option>
+        //   );
+        // });
         const anomalyOptions = (this.anomalyOptions || []).map((option) => {
             return (h("option", { value: option.id, selected: this.getSelectedAnomaly(option) }, option.name));
         });
@@ -1434,104 +1488,113 @@ export class OpenbioSignatureComponentDetails {
     }
     static get is() { return "openbio-scanner-details"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["openbio-scanner-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["openbio-scanner-component.css"]
+    }; }
     static get properties() { return {
-        "anomaly": {
-            "state": true
-        },
-        "anomalyOptions": {
-            "state": true
-        },
-        "backendSession": {
-            "state": true
-        },
-        "brand": {
-            "state": true
-        },
-        "captureInput": {
-            "state": true
-        },
-        "componentContainer": {
-            "elementRef": true
-        },
         "detached": {
-            "type": Boolean,
-            "attr": "detached",
-            "mutable": true
-        },
-        "deviceList": {
-            "state": true
-        },
-        "deviceOpened": {
-            "state": true
-        },
-        "deviceReady": {
-            "state": true
-        },
-        "deviceStatus": {
-            "state": true
-        },
-        "disableFormSelection": {
-            "state": true
-        },
-        "form": {
-            "state": true
-        },
-        "formType": {
-            "state": true
-        },
-        "imgTest": {
-            "state": true
-        },
-        "isCapturing": {
-            "state": true
+            "type": "boolean",
+            "mutable": true,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "detached",
+            "reflect": false
         },
         "isTagComponent": {
-            "type": Boolean,
-            "attr": "is-tag-component"
-        },
-        "locale": {
-            "type": String,
-            "attr": "locale",
-            "mutable": true,
-            "watchCallbacks": ["listenLocale"]
-        },
-        "modal": {
-            "state": true
-        },
-        "model": {
-            "state": true
-        },
-        "palmAnomalyOptions": {
-            "state": true
-        },
-        "palmFormType": {
-            "state": true
-        },
-        "palmType": {
-            "state": true
-        },
-        "person": {
-            "state": true
-        },
-        "selectedDevice": {
-            "state": true
-        },
-        "serial": {
-            "state": true
-        },
-        "serviceConfigs": {
-            "state": true
-        },
-        "showLoader": {
-            "state": true
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "is-tag-component",
+            "reflect": false
         },
         "tempPerson": {
-            "type": "Any",
-            "attr": "temp-person"
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "temp-person",
+            "reflect": false
         },
-        "translations": {
-            "state": true
+        "locale": {
+            "type": "string",
+            "mutable": true,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "locale",
+            "reflect": false,
+            "defaultValue": "'pt'"
         }
     }; }
-    static get style() { return "/**style-placeholder:openbio-scanner-details:**/"; }
+    static get states() { return {
+        "imgTest": {},
+        "deviceReady": {},
+        "deviceOpened": {},
+        "backendSession": {},
+        "showLoader": {},
+        "isCapturing": {},
+        "model": {},
+        "brand": {},
+        "serial": {},
+        "deviceStatus": {},
+        "serviceConfigs": {},
+        "person": {},
+        "modal": {},
+        "form": {},
+        "deviceList": {},
+        "selectedDevice": {},
+        "formType": {},
+        "palmType": {},
+        "palmFormType": {},
+        "disableFormSelection": {},
+        "anomalyOptions": {},
+        "palmAnomalyOptions": {},
+        "anomaly": {},
+        "captureInput": {},
+        "translations": {}
+    }; }
+    static get elementRef() { return "componentContainer"; }
+    static get watchers() { return [{
+            "propName": "locale",
+            "methodName": "listenLocale"
+        }]; }
 }

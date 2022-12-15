@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 import Cropper from 'cropperjs';
 import Swal from 'sweetalert2/dist/sweetalert2.all.min.js';
 import { TranslationUtils } from '../../locales/translation';
@@ -32,6 +33,10 @@ export class ImageCropperComponent {
             viewMode: 0,
             minContainerWidth: 710
         });
+        // setTimeout(() => {
+        //   const cropperContainer: any = currentElement.getElementsByTagName("image-cropper-component")[0].shadowRoot.lastElementChild.getElementsByClassName("cropper-bg")[0];
+        //   cropperContainer.style.maxHeight = "710px"
+        // }, 1000);
     }
     crop() {
         const croppedImage = this.cropper.getCroppedCanvas().toDataURL('image/jpeg', 0.8);
@@ -89,53 +94,159 @@ export class ImageCropperComponent {
     }
     static get is() { return "image-cropper-component"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["image-cropper-component.scss", "../../../node_modules/cropperjs/dist/cropper.css", "../../../node_modules/bulma-checkradio/dist/css/bulma-checkradio.min.css"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["image-cropper-component.css", "../../../node_modules/cropperjs/dist/cropper.css", "../../../node_modules/bulma-checkradio/dist/css/bulma-checkradio.min.css"]
+    }; }
     static get properties() { return {
         "aspectRatio": {
-            "type": "Any",
-            "attr": "aspect-ratio"
-        },
-        "componentContainer": {
-            "elementRef": true
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "aspect-ratio",
+            "reflect": false
         },
         "cropBoxResizable": {
-            "type": Boolean,
-            "attr": "crop-box-resizable"
-        },
-        "cropCallback": {
-            "type": "Any",
-            "attr": "crop-callback"
-        },
-        "cropper": {
-            "state": true
-        },
-        "currentElementTag": {
-            "type": String,
-            "attr": "current-element-tag"
-        },
-        "locale": {
-            "type": String,
-            "attr": "locale",
-            "mutable": true,
-            "watchCallbacks": ["listenLocale"]
-        },
-        "parentComponentContext": {
-            "type": "Any",
-            "attr": "parent-component-context"
-        },
-        "parentElementTag": {
-            "type": String,
-            "attr": "parent-element-tag"
-        },
-        "segment": {
-            "state": true
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "crop-box-resizable",
+            "reflect": false
         },
         "src": {
-            "type": String,
-            "attr": "src"
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "src",
+            "reflect": false
         },
-        "translations": {
-            "state": true
+        "parentElementTag": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "parent-element-tag",
+            "reflect": false
+        },
+        "currentElementTag": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "current-element-tag",
+            "reflect": false
+        },
+        "parentComponentContext": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "parent-component-context",
+            "reflect": false
+        },
+        "cropCallback": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "crop-callback",
+            "reflect": false
+        },
+        "locale": {
+            "type": "string",
+            "mutable": true,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "locale",
+            "reflect": false,
+            "defaultValue": "'pt'"
         }
     }; }
-    static get style() { return "/**style-placeholder:image-cropper-component:**/"; }
+    static get states() { return {
+        "cropper": {},
+        "segment": {},
+        "translations": {}
+    }; }
+    static get elementRef() { return "componentContainer"; }
+    static get watchers() { return [{
+            "propName": "locale",
+            "methodName": "listenLocale"
+        }]; }
 }

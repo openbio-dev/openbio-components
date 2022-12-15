@@ -1,3 +1,4 @@
+import { h } from "@stencil/core";
 import { notify } from '../../utils/notifier';
 import WS from "../../utils/websocket";
 import { faceAuthenticate, authLog, getPeople } from '../openbio-face-auth-component/api';
@@ -297,92 +298,170 @@ export class OpenbioFaceAuthComponent {
     }
     static get is() { return "openbio-face-auth"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["openbio-face-auth-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["openbio-face-auth-component.css"]
+    }; }
     static get properties() { return {
-        "authenticateError": {
-            "state": true
-        },
-        "cameraInitialized": {
-            "state": true
-        },
-        "captured": {
-            "state": true
-        },
-        "componentContainer": {
-            "elementRef": true
-        },
-        "countdown": {
-            "state": true
+        "useOpenbioMatcher": {
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "use-openbio-matcher",
+            "reflect": false
         },
         "cpf": {
-            "type": String,
-            "attr": "cpf"
-        },
-        "cpfState": {
-            "state": true
-        },
-        "debug": {
-            "state": true
-        },
-        "faceDetected": {
-            "state": true
-        },
-        "hiddenCamera": {
-            "type": Boolean,
-            "attr": "hidden-camera"
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "cpf",
+            "reflect": false
         },
         "isDebug": {
-            "type": Boolean,
-            "attr": "is-debug"
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "is-debug",
+            "reflect": false
         },
-        "locale": {
-            "type": String,
-            "attr": "locale",
-            "mutable": true,
-            "watchCallbacks": ["listenLocale"]
-        },
-        "person": {
-            "state": true
-        },
-        "personImage": {
-            "type": String,
-            "attr": "person-image"
-        },
-        "personImageState": {
-            "state": true
+        "hiddenCamera": {
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "hidden-camera",
+            "reflect": false
         },
         "personName": {
-            "type": String,
-            "attr": "person-name"
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "person-name",
+            "reflect": false
         },
-        "personNameState": {
-            "state": true
+        "personImage": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "person-image",
+            "reflect": false
         },
-        "showFullscreenLoader": {
-            "state": true
-        },
-        "thresholdAuthenticate": {
-            "state": true
-        },
-        "translations": {
-            "state": true
-        },
-        "useOpenbioMatcher": {
-            "type": Boolean,
-            "attr": "use-openbio-matcher"
-        },
-        "useOpenbioMatcherState": {
-            "state": true
-        },
-        "videoInterval": {
-            "state": true
+        "locale": {
+            "type": "string",
+            "mutable": true,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "locale",
+            "reflect": false,
+            "defaultValue": "'pt'"
         }
     }; }
+    static get states() { return {
+        "showFullscreenLoader": {},
+        "useOpenbioMatcherState": {},
+        "cpfState": {},
+        "personNameState": {},
+        "personImageState": {},
+        "debug": {},
+        "thresholdAuthenticate": {},
+        "captured": {},
+        "authenticateError": {},
+        "faceDetected": {},
+        "countdown": {},
+        "videoInterval": {},
+        "cameraInitialized": {},
+        "person": {},
+        "translations": {}
+    }; }
     static get events() { return [{
-            "name": "onMatcherResult",
             "method": "onMatcherResult",
+            "name": "onMatcherResult",
             "bubbles": true,
             "cancelable": true,
-            "composed": true
+            "composed": true,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            }
         }]; }
-    static get style() { return "/**style-placeholder:openbio-face-auth:**/"; }
+    static get elementRef() { return "componentContainer"; }
+    static get watchers() { return [{
+            "propName": "locale",
+            "methodName": "listenLocale"
+        }]; }
 }

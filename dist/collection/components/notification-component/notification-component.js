@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 export class NotificationComponent {
     render() {
         return (h("div", { class: `notification notification-${this.notificationType}` },
@@ -5,15 +6,46 @@ export class NotificationComponent {
     }
     static get is() { return "notification-component"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["notification-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["notification-component.css"]
+    }; }
     static get properties() { return {
         "notificationType": {
-            "type": String,
-            "attr": "notification-type"
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "notification-type",
+            "reflect": false
         },
         "text": {
-            "type": String,
-            "attr": "text"
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "text",
+            "reflect": false
         }
     }; }
-    static get style() { return "/**style-placeholder:notification-component:**/"; }
 }

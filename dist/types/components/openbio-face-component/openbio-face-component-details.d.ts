@@ -1,4 +1,4 @@
-import '../../stencil.core';
+import { HTMLStencilElement } from '../../stencil.core';
 export declare class OpenbioFaceComponentDetails {
     private ws;
     private wsStatusInterval;
@@ -105,7 +105,7 @@ export declare class OpenbioFaceComponentDetails {
     isWebcam(): boolean;
     buildWebcam(): any;
     resetAutoCapturing(): void;
-    fileToBase64: (file: any) => Promise<{}>;
+    fileToBase64: (file: any) => Promise<unknown>;
     componentDidLoad(): Promise<void>;
     configureSegmentation(): void;
     componentDidUnload(): void;
@@ -143,5 +143,5 @@ export declare class OpenbioFaceComponentDetails {
     imageAdjustmentCallback(_this: any, adjustment: boolean, adjustedImage: string): void;
     closeImageAdjustment(_this: any): void;
     saveImage(_this: any): void;
-    render(): JSX.Element;
+    render(): any;
 }

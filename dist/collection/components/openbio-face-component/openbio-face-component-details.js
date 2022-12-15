@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 import WS from '../../utils/websocket';
 import { setFace } from '../../store/main.store';
 import { getAnomalies, getCameraSettingsOptions, getCameraSettings, saveCameraSettings, saveFace, getFaceSettings, } from "./api";
@@ -50,6 +51,7 @@ function orderEyes(a, b) {
 export class OpenbioFaceComponentDetails {
     constructor() {
         this.ws = new WS();
+        // private gammaTables: number;
         this.person = {
             id: 0
         };
@@ -812,7 +814,7 @@ export class OpenbioFaceComponentDetails {
         this.payload.action = "close-component";
         this.payload.data = {
             type: "face",
-            owner: "default-user"
+            owner: "default-user" // #TODO replace this with a authenticated user
         };
         this.ws.respondToDeviceWS(this.payload);
     }
@@ -1061,6 +1063,7 @@ export class OpenbioFaceComponentDetails {
         this.showLoader = true;
         const image = new Image();
         const blob = await fetch(`data:image/${this.serviceConfigs.face.imageType};base64,${finalImageBase64}`).then(res => res.blob());
+        // this.uploadedBase64 = finalImageBase64;
         this.componentContainer.forceUpdate();
         const url = window.URL.createObjectURL(blob);
         image.onload = async () => {
@@ -1605,237 +1608,173 @@ export class OpenbioFaceComponentDetails {
     }
     static get is() { return "openbio-face-details"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["openbio-face-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["openbio-face-component.css"]
+    }; }
     static get properties() { return {
-        "adjustedImage": {
-            "state": true
-        },
-        "adjustment": {
-            "state": true
-        },
-        "allowConfiguration": {
-            "state": true
-        },
-        "anomaly": {
-            "state": true
-        },
-        "anomalyOptions": {
-            "state": true
-        },
-        "aperture": {
-            "state": true
-        },
-        "autoCapture": {
-            "state": true
-        },
-        "autoCaptureCount": {
-            "state": true
-        },
-        "autoCaptureInterval": {
-            "state": true
-        },
-        "autoCapturing": {
-            "state": true
-        },
-        "backendSession": {
-            "state": true
-        },
-        "brand": {
-            "state": true
-        },
-        "cameraPresetOptions": {
-            "state": true
-        },
-        "cameraSettingsOptions": {
-            "state": true
-        },
-        "captureInput": {
-            "state": true
-        },
-        "centerLineLocationRatio": {
-            "state": true
-        },
-        "componentContainer": {
-            "elementRef": true
-        },
-        "crop": {
-            "state": true
-        },
-        "croppedImage": {
-            "state": true
-        },
-        "croppedImageURL": {
-            "state": true
-        },
-        "cropperModal": {
-            "state": true
-        },
-        "cropSegment": {
-            "state": true
-        },
         "detached": {
-            "type": Boolean,
-            "attr": "detached",
-            "mutable": true
-        },
-        "deviceReady": {
-            "state": true
-        },
-        "deviceStatus": {
-            "state": true
-        },
-        "dpiValue": {
-            "state": true
-        },
-        "evaluations": {
-            "state": true
-        },
-        "eyeAxisLocationRatio": {
-            "state": true
-        },
-        "eyeAxysAngle": {
-            "state": true
-        },
-        "eyeSeparation": {
-            "state": true
-        },
-        "face": {
-            "state": true
-        },
-        "faceDetected": {
-            "state": true
-        },
-        "flashCharge": {
-            "state": true
-        },
-        "flashProperty": {
-            "state": true
-        },
-        "flashWidth": {
-            "state": true
-        },
-        "imageAdjustmentModal": {
-            "state": true
-        },
-        "imageFilterBase64": {
-            "state": true
-        },
-        "imageFilterModal": {
-            "state": true
-        },
-        "imageFormat": {
-            "state": true
-        },
-        "isCapturing": {
-            "state": true
-        },
-        "isoValue": {
-            "state": true
-        },
-        "isPreviewing": {
-            "state": true
+            "type": "boolean",
+            "mutable": true,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "detached",
+            "reflect": false
         },
         "isTagComponent": {
-            "type": Boolean,
-            "attr": "is-tag-component"
-        },
-        "locale": {
-            "type": String,
-            "attr": "locale",
-            "mutable": true,
-            "watchCallbacks": ["listenLocale"]
-        },
-        "manualEyeSelection": {
-            "state": true
-        },
-        "model": {
-            "state": true
-        },
-        "offAngleGaze": {
-            "state": true
-        },
-        "originalImage": {
-            "state": true
-        },
-        "poseAngleYaw": {
-            "state": true
-        },
-        "preset": {
-            "state": true
-        },
-        "previewSize": {
-            "state": true
-        },
-        "previewType": {
-            "state": true
-        },
-        "rawImage": {
-            "state": true
-        },
-        "rightOrLeftEyeClosed": {
-            "state": true
-        },
-        "segmentation": {
-            "state": true
-        },
-        "segmentedImage": {
-            "state": true
-        },
-        "serial": {
-            "state": true
-        },
-        "serviceConfigs": {
-            "state": true
-        },
-        "serviceTime": {
-            "state": true
-        },
-        "shallCapture": {
-            "state": true
-        },
-        "showCameraConfiguration": {
-            "state": true
-        },
-        "showLoader": {
-            "state": true
-        },
-        "showPreviewTemplate": {
-            "state": true
-        },
-        "shutterSpeed": {
-            "state": true
-        },
-        "tab": {
-            "state": true
-        },
-        "tempFace": {
-            "type": "Any",
-            "attr": "temp-face"
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "is-tag-component",
+            "reflect": false
         },
         "tempPerson": {
-            "type": "Any",
-            "attr": "temp-person"
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "temp-person",
+            "reflect": false
         },
-        "track": {
-            "state": true
+        "tempFace": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "temp-face",
+            "reflect": false
         },
-        "translations": {
-            "state": true
-        },
-        "uploadedBase64": {
-            "state": true
-        },
-        "uploadedBase64Original": {
-            "state": true
-        },
-        "validation": {
-            "state": true
-        },
-        "video": {
-            "state": true
-        },
-        "whiteBalance": {
-            "state": true
+        "locale": {
+            "type": "string",
+            "mutable": true,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "locale",
+            "reflect": false,
+            "defaultValue": "'pt'"
         }
     }; }
-    static get style() { return "/**style-placeholder:openbio-face-details:**/"; }
+    static get states() { return {
+        "deviceReady": {},
+        "eyeAxisLocationRatio": {},
+        "centerLineLocationRatio": {},
+        "eyeSeparation": {},
+        "offAngleGaze": {},
+        "eyeAxysAngle": {},
+        "poseAngleYaw": {},
+        "rightOrLeftEyeClosed": {},
+        "originalImage": {},
+        "croppedImage": {},
+        "segmentedImage": {},
+        "rawImage": {},
+        "crop": {},
+        "segmentation": {},
+        "autoCapture": {},
+        "autoCaptureCount": {},
+        "autoCapturing": {},
+        "autoCaptureInterval": {},
+        "dpiValue": {},
+        "flashCharge": {},
+        "cameraSettingsOptions": {},
+        "tab": {},
+        "anomalyOptions": {},
+        "anomaly": {},
+        "face": {},
+        "validation": {},
+        "backendSession": {},
+        "showLoader": {},
+        "cameraPresetOptions": {},
+        "flashProperty": {},
+        "flashWidth": {},
+        "aperture": {},
+        "shutterSpeed": {},
+        "imageFormat": {},
+        "isoValue": {},
+        "whiteBalance": {},
+        "preset": {},
+        "previewSize": {},
+        "previewType": {},
+        "isCapturing": {},
+        "isPreviewing": {},
+        "model": {},
+        "brand": {},
+        "serial": {},
+        "video": {},
+        "track": {},
+        "allowConfiguration": {},
+        "showCameraConfiguration": {},
+        "showPreviewTemplate": {},
+        "manualEyeSelection": {},
+        "faceDetected": {},
+        "deviceStatus": {},
+        "shallCapture": {},
+        "evaluations": {},
+        "serviceConfigs": {},
+        "captureInput": {},
+        "uploadedBase64": {},
+        "uploadedBase64Original": {},
+        "imageFilterBase64": {},
+        "serviceTime": {},
+        "cropperModal": {},
+        "imageAdjustmentModal": {},
+        "imageFilterModal": {},
+        "cropSegment": {},
+        "translations": {},
+        "adjustment": {},
+        "adjustedImage": {},
+        "croppedImageURL": {}
+    }; }
+    static get elementRef() { return "componentContainer"; }
+    static get watchers() { return [{
+            "propName": "locale",
+            "methodName": "listenLocale"
+        }]; }
 }

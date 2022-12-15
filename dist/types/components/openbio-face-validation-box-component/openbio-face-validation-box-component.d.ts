@@ -1,4 +1,4 @@
-import '../../stencil.core';
+import { HTMLStencilElement } from '../../stencil.core';
 export declare class OpenbioFaceValidationBoxComponent {
     componentContainer: HTMLStencilElement;
     leftIcon: boolean;
@@ -14,5 +14,5 @@ export declare class OpenbioFaceValidationBoxComponent {
     setI18nParameters(locale: any): Promise<void>;
     getStatusMessage(): string;
     getClasses(): string;
-    render(): JSX.Element;
+    render(): any;
 }

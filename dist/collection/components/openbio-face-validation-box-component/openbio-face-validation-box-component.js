@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 import { TranslationUtils } from '../../locales/translation';
 const VALIDATION_ICONS = {
     background: './assets/general/bkgd.png',
@@ -98,42 +99,124 @@ export class OpenbioFaceValidationBoxComponent {
     }
     static get is() { return "openbio-face-validation-box-component"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["openbio-face-validation-box-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["openbio-face-validation-box-component.css"]
+    }; }
     static get properties() { return {
-        "componentContainer": {
-            "elementRef": true
-        },
-        "detached": {
-            "type": Boolean,
-            "attr": "detached"
-        },
         "leftIcon": {
-            "type": Boolean,
-            "attr": "left-icon"
-        },
-        "locale": {
-            "type": String,
-            "attr": "locale",
-            "mutable": true,
-            "watchCallbacks": ["listenLocale"]
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "left-icon",
+            "reflect": false
         },
         "status": {
-            "type": "Any",
-            "attr": "status"
-        },
-        "statusMessage": {
-            "state": true
-        },
-        "translations": {
-            "state": true
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "status",
+            "reflect": false
         },
         "type": {
-            "type": String,
-            "attr": "type"
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "type",
+            "reflect": false
         },
         "typeTitle": {
-            "type": String,
-            "attr": "type-title"
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "type-title",
+            "reflect": false
+        },
+        "detached": {
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "detached",
+            "reflect": false
+        },
+        "locale": {
+            "type": "string",
+            "mutable": true,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "locale",
+            "reflect": false,
+            "defaultValue": "'pt'"
         }
     }; }
-    static get style() { return "/**style-placeholder:openbio-face-validation-box-component:**/"; }
+    static get states() { return {
+        "statusMessage": {},
+        "translations": {}
+    }; }
+    static get elementRef() { return "componentContainer"; }
+    static get watchers() { return [{
+            "propName": "locale",
+            "methodName": "listenLocale"
+        }]; }
 }

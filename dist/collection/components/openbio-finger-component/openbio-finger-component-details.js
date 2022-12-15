@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 import { getFlowOptions, getAnomalies, saveFingers, getModalSettings, getPeople, saveFingerFile } from "./api";
 import { setFingers } from '../../store/main.store';
 import { showImage } from '../../utils/canvas';
@@ -200,6 +201,7 @@ export class OpenbioFingerComponent {
         this.ws.respondToDeviceWS(this.payload);
     }
     generateMinutiateData() {
+        // console.log("inside generateMinutiateData", this.currentFingerSequence, this.tempFingersData);
         const fingers = [];
         for (const index in this.currentFingerSequence) {
             fingers.push({
@@ -379,15 +381,18 @@ export class OpenbioFingerComponent {
     callProcessors(data) {
         if (this.payload.processorName) {
             if (this.beginMatch() && this.match) {
+                // console.log("callProcessors.executeMatch 1", data);
                 this.tempFingersData = data.fingersData;
                 this.executeMatch();
             }
             else {
+                // console.log("callProcessors.executeMatch 2");
                 this.tempFingersData = data.fingersData;
                 this.executeRepetitionControl();
             }
         }
         else {
+            // console.log("callProcessors.generateMinutiateData");
             this.tempFingersData = data.fingersData;
             this.generateMinutiateData();
         }
@@ -601,10 +606,12 @@ export class OpenbioFingerComponent {
                         }
                     }
                     if (data.status === "match-success") {
+                        // console.log("match-success");
                         this.generateMinutiateData();
                         this.unmatchCount = 0;
                     }
                     if (data.status === "minutiate-data-generated") {
+                        // console.log("minutiate-data-generated");
                         this.minutiateFingers = JSON.parse(data.minutiateFingers);
                         await this.saveFingers(this.tempFingersData);
                         this.tempFingersData = null;
@@ -720,6 +727,7 @@ export class OpenbioFingerComponent {
                         });
                     }
                     if (data.status === "done-setting-fingers") {
+                        // console.log("done-setting");
                         this.stopPreview();
                         this.startPreview();
                     }
@@ -795,6 +803,9 @@ export class OpenbioFingerComponent {
         const checkSessionInterval = setInterval(() => {
             if (this.backendSession) {
                 clearInterval(checkSessionInterval);
+                // if (!this.singleCaptureSt) {
+                //   this.flowType = this.foundFlowType(this.backendSession.sequence) || 0;
+                // }
                 const captureData = this.backendSession.data.map((item) => {
                     return {
                         data: item.captureType === 2 ? item.imagePng : item.imageFlat,
@@ -1023,6 +1034,7 @@ export class OpenbioFingerComponent {
             localization = await getLocalization();
         }
         let fingers = [];
+        // console.log("saveFingers call", this.currentFingerSequence);
         for (const index in this.currentFingerSequence) {
             const fingerIndex = this.currentFingerSequence[index];
             let minutiateFinger = undefined;
@@ -1055,10 +1067,12 @@ export class OpenbioFingerComponent {
             if (this.person && !this.singleCaptureSt) {
                 if (this.storeOriginalImage)
                     await this.saveOriginalImage();
+                // console.log("fingers to be saved", fingers, "\n");
                 const saveFingersResult = await saveFingers({
                     personId: this.person.id,
                     fingers: JSON.stringify(fingers)
                 });
+                // console.log("saved Fingers", saveFingersResult, "\n");
                 const parsedValue = await saveFingersResult.map((item) => {
                     return {
                         id: item.id,
@@ -1157,6 +1171,7 @@ export class OpenbioFingerComponent {
             });
         }
         ;
+        // console.log("storeCapturedFinger - Complete fingers list", this.fingers);
         setFingers(this.fingers);
         if (!this.singleCaptureSt) {
             this.setCurrentFinger();
@@ -1170,6 +1185,9 @@ export class OpenbioFingerComponent {
             const flatFinger = this.fingers.find((finger) => finger.fingerIndex === currentFingerIndex && (finger.captureType === captureType.TWO_FINGER_FLAT || finger.captureType === captureType.ONE_FINGER_FLAT));
             const previousAnomalyId = flatFinger ? flatFinger.anomalyId : undefined;
             if (previousAnomalyId && !this.checkCaptureNeed(previousAnomalyId)) {
+                // console.log("previousAnomalyId", previousAnomalyId);
+                // console.log("currentFingerIndex", currentFingerIndex);
+                // console.log(this.anomalies[currentFingerIndex]);
                 this.anomaly = { id: previousAnomalyId };
                 this.saveAnomaly();
             }
@@ -1218,7 +1236,7 @@ export class OpenbioFingerComponent {
         this.payload.action = "close-component";
         this.payload.data = {
             type: "modal",
-            owner: "default-user"
+            owner: "default-user" // #TODO replace this with a authenticated user
         };
         this.ws.respondToDeviceWS(this.payload);
     }
@@ -1492,224 +1510,297 @@ export class OpenbioFingerComponent {
     }
     static get is() { return "openbio-finger-details"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["openbio-finger-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["openbio-finger-component.css"]
+    }; }
     static get properties() { return {
-        "anomalies": {
-            "state": true
-        },
-        "anomaly": {
-            "state": true
-        },
-        "anomalyOptions": {
-            "state": true
-        },
-        "authenticationSimilarity": {
-            "state": true
-        },
-        "backendSession": {
-            "state": true
-        },
-        "badNfiqQualityCount": {
-            "state": true
-        },
-        "brand": {
-            "state": true
-        },
-        "capturedData": {
-            "state": true
-        },
-        "captureDone": {
-            "state": true
-        },
-        "captureType": {
-            "state": true
-        },
-        "captureTypeName": {
-            "state": true
-        },
-        "componentContainer": {
-            "elementRef": true
-        },
-        "cpf": {
-            "type": String,
-            "attr": "cpf"
-        },
-        "cpfSt": {
-            "state": true
-        },
-        "currentFingerImage": {
-            "state": true
-        },
-        "currentFingerNames": {
-            "state": true
-        },
-        "currentFingerSequence": {
-            "state": true
-        },
-        "currentRollingStatus": {
-            "state": true
-        },
-        "currentStatusLineX": {
-            "state": true
-        },
         "detached": {
-            "type": Boolean,
-            "attr": "detached",
-            "mutable": true
-        },
-        "deviceReady": {
-            "state": true
-        },
-        "disabledControls": {
-            "state": true
-        },
-        "editingId": {
-            "state": true
-        },
-        "failControl": {
-            "state": true
-        },
-        "fingerCaptureType": {
-            "type": Number,
-            "attr": "finger-capture-type"
-        },
-        "fingerNamesList": {
-            "state": true
-        },
-        "fingers": {
-            "state": true
-        },
-        "fingerSequence": {
-            "state": true
-        },
-        "fingersToCapture": {
-            "state": true
-        },
-        "flowOptions": {
-            "state": true
-        },
-        "flowType": {
-            "state": true
-        },
-        "generateBMP": {
-            "state": true
-        },
-        "isEditing": {
-            "state": true
+            "type": "boolean",
+            "mutable": true,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "detached",
+            "reflect": false
         },
         "isTagComponent": {
-            "type": Boolean,
-            "attr": "is-tag-component"
-        },
-        "locale": {
-            "type": String,
-            "attr": "locale",
-            "mutable": true,
-            "watchCallbacks": ["listenLocale"]
-        },
-        "match": {
-            "state": true
-        },
-        "modalSettings": {
-            "state": true
-        },
-        "model": {
-            "state": true
-        },
-        "nfiqScore": {
-            "state": true
-        },
-        "onCaptureFingerprint": {
-            "type": "Any",
-            "attr": "on-capture-fingerprint"
-        },
-        "onOpenbioMatcher": {
-            "type": "Any",
-            "attr": "on-openbio-matcher"
-        },
-        "opened": {
-            "state": true
-        },
-        "originalImage": {
-            "state": true
-        },
-        "personImage": {
-            "type": String,
-            "attr": "person-image"
-        },
-        "personInfo": {
-            "state": true
-        },
-        "personName": {
-            "type": String,
-            "attr": "person-name"
-        },
-        "repeatedCount": {
-            "state": true
-        },
-        "repetitionControl": {
-            "state": true
-        },
-        "selectedFinger": {
-            "state": true
-        },
-        "serial": {
-            "state": true
-        },
-        "serviceConfigs": {
-            "state": true
-        },
-        "serviceTime": {
-            "state": true
-        },
-        "showControlDisable": {
-            "state": true
-        },
-        "showLoader": {
-            "state": true
-        },
-        "singleCapture": {
-            "type": Boolean,
-            "attr": "single-capture"
-        },
-        "singleCaptureLoading": {
-            "state": true
-        },
-        "singleCaptureSt": {
-            "state": true
-        },
-        "smearCount": {
-            "state": true
-        },
-        "stepPhase": {
-            "state": true
-        },
-        "storeOriginalImage": {
-            "state": true
-        },
-        "tab": {
-            "state": true
-        },
-        "tempFingers": {
-            "type": "Any",
-            "attr": "temp-fingers"
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "is-tag-component",
+            "reflect": false
         },
         "tempPerson": {
-            "type": "Any",
-            "attr": "temp-person"
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "temp-person",
+            "reflect": false
         },
-        "translations": {
-            "state": true
+        "tempFingers": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "temp-fingers",
+            "reflect": false
         },
-        "unmatchCount": {
-            "state": true
+        "cpf": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "cpf",
+            "reflect": false
+        },
+        "personImage": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "person-image",
+            "reflect": false
+        },
+        "personName": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "person-name",
+            "reflect": false
+        },
+        "singleCapture": {
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "single-capture",
+            "reflect": false
+        },
+        "fingerCaptureType": {
+            "type": "number",
+            "mutable": false,
+            "complexType": {
+                "original": "number",
+                "resolved": "number",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "finger-capture-type",
+            "reflect": false
         },
         "useOpenbioMatcher": {
-            "type": Boolean,
-            "attr": "use-openbio-matcher"
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "use-openbio-matcher",
+            "reflect": false
         },
-        "useOpenbioMatcherSt": {
-            "state": true
+        "onCaptureFingerprint": {
+            "type": "unknown",
+            "mutable": false,
+            "complexType": {
+                "original": "Function",
+                "resolved": "Function",
+                "references": {
+                    "Function": {
+                        "location": "global"
+                    }
+                }
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            }
+        },
+        "onOpenbioMatcher": {
+            "type": "unknown",
+            "mutable": false,
+            "complexType": {
+                "original": "Function",
+                "resolved": "Function",
+                "references": {
+                    "Function": {
+                        "location": "global"
+                    }
+                }
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            }
+        },
+        "locale": {
+            "type": "string",
+            "mutable": true,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "locale",
+            "reflect": false
         }
     }; }
-    static get style() { return "/**style-placeholder:openbio-finger-details:**/"; }
+    static get states() { return {
+        "capturedData": {},
+        "originalImage": {},
+        "deviceReady": {},
+        "nfiqScore": {},
+        "captureType": {},
+        "captureTypeName": {},
+        "stepPhase": {},
+        "flowType": {},
+        "currentRollingStatus": {},
+        "currentStatusLineX": {},
+        "flowOptions": {},
+        "anomalyOptions": {},
+        "anomaly": {},
+        "anomalies": {},
+        "currentFingerNames": {},
+        "currentFingerImage": {},
+        "currentFingerSequence": {},
+        "fingerSequence": {},
+        "fingers": {},
+        "tab": {},
+        "backendSession": {},
+        "repetitionControl": {},
+        "match": {},
+        "disabledControls": {},
+        "generateBMP": {},
+        "storeOriginalImage": {},
+        "modalSettings": {},
+        "failControl": {},
+        "unmatchCount": {},
+        "repeatedCount": {},
+        "smearCount": {},
+        "badNfiqQualityCount": {},
+        "model": {},
+        "brand": {},
+        "serial": {},
+        "opened": {},
+        "fingerNamesList": {},
+        "fingersToCapture": {},
+        "editingId": {},
+        "isEditing": {},
+        "showLoader": {},
+        "showControlDisable": {},
+        "serviceConfigs": {},
+        "personInfo": {},
+        "selectedFinger": {},
+        "authenticationSimilarity": {},
+        "useOpenbioMatcherSt": {},
+        "cpfSt": {},
+        "singleCaptureSt": {},
+        "singleCaptureLoading": {},
+        "captureDone": {},
+        "serviceTime": {},
+        "translations": {}
+    }; }
+    static get elementRef() { return "componentContainer"; }
+    static get watchers() { return [{
+            "propName": "locale",
+            "methodName": "listenLocale"
+        }]; }
 }

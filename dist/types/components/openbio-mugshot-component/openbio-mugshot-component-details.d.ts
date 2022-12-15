@@ -1,4 +1,4 @@
-import '../../stencil.core';
+import { HTMLStencilElement } from '../../stencil.core';
 export declare class OpenbioMugshotComponentDetails {
     private ws;
     private wsStatusInterval;
@@ -96,5 +96,5 @@ export declare class OpenbioMugshotComponentDetails {
     deleteMugshotPhoto(id: number, index?: number): Promise<void>;
     clearSessionData(): void;
     updateSessionData(): void;
-    render(): JSX.Element;
+    render(): any;
 }

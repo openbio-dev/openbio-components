@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 import { TranslationUtils } from '../../locales/translation';
 export class GuideImageComponent {
     constructor() {
@@ -46,31 +47,73 @@ export class GuideImageComponent {
     }
     static get is() { return "help-component"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["help-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["help-component.css"]
+    }; }
     static get properties() { return {
-        "componentContainer": {
-            "elementRef": true
+        "src": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "src",
+            "reflect": false
         },
         "helpText": {
-            "type": String,
-            "attr": "help-text",
-            "mutable": true
-        },
-        "isHelpModalActive": {
-            "state": true
+            "type": "string",
+            "mutable": true,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "help-text",
+            "reflect": false
         },
         "locale": {
-            "type": String,
-            "attr": "locale",
+            "type": "string",
             "mutable": true,
-            "watchCallbacks": ["listenLocale"]
-        },
-        "src": {
-            "type": String,
-            "attr": "src"
-        },
-        "translations": {
-            "state": true
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "locale",
+            "reflect": false,
+            "defaultValue": "'pt'"
         }
     }; }
-    static get style() { return "/**style-placeholder:help-component:**/"; }
+    static get states() { return {
+        "isHelpModalActive": {},
+        "translations": {}
+    }; }
+    static get elementRef() { return "componentContainer"; }
+    static get watchers() { return [{
+            "propName": "locale",
+            "methodName": "listenLocale"
+        }]; }
 }

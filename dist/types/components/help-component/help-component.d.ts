@@ -1,4 +1,4 @@
-import '../../stencil.core';
+import { HTMLStencilElement } from '../../stencil.core';
 export declare class GuideImageComponent {
     componentContainer: HTMLStencilElement;
     src: string;
@@ -11,5 +11,5 @@ export declare class GuideImageComponent {
     setHelpModalStatus(status: boolean): void;
     setI18nParameters(locale: any): Promise<void>;
     componentDidLoad(): void;
-    render(): JSX.Element;
+    render(): any;
 }

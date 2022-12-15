@@ -1,5 +1,5 @@
-import '../../stencil.core';
 import WS from '../../utils/websocket';
+import { HTMLStencilElement } from '../../stencil.core';
 export declare class OpenbioSignatureComponentDetails {
     ws: WS;
     private wsStatusInterval;
@@ -59,9 +59,9 @@ export declare class OpenbioSignatureComponentDetails {
     saveSignature(saveAnomaly?: boolean): Promise<void>;
     storeCapturedSignature(parsedValue: any): void;
     onInputChange(files: any): Promise<void>;
-    fileToBase64: (file: any) => Promise<{}>;
+    fileToBase64: (file: any) => Promise<unknown>;
     _base64ToArrayBuffer(base64: any): ArrayBuffer | SharedArrayBuffer;
     cropCallback(_this: any, croppedBase64Image: string): void;
     normalizeImage(): Promise<void>;
-    render(): JSX.Element;
+    render(): any;
 }

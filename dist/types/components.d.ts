@@ -5,37 +5,21 @@
  */
 
 
-import './stencil.core';
-
-
+import { HTMLStencilElement, JSXBase } from './stencil.core';
 
 
 export namespace Components {
-
   interface CnhPreview {
     'inputSignature': any;
     'person': any;
     'photo': any;
     'size': PreviewSize;
   }
-  interface CnhPreviewAttributes extends StencilHTMLAttributes {
-    'inputSignature'?: any;
-    'person'?: any;
-    'photo'?: any;
-    'size'?: PreviewSize;
-  }
-
   interface HelpComponent {
     'helpText': string;
     'locale': string;
     'src': string;
   }
-  interface HelpComponentAttributes extends StencilHTMLAttributes {
-    'helpText'?: string;
-    'locale'?: string;
-    'src'?: string;
-  }
-
   interface ImageCropperComponent {
     'aspectRatio': any;
     'cropBoxResizable': boolean;
@@ -46,17 +30,6 @@ export namespace Components {
     'parentElementTag': string;
     'src': string;
   }
-  interface ImageCropperComponentAttributes extends StencilHTMLAttributes {
-    'aspectRatio'?: any;
-    'cropBoxResizable'?: boolean;
-    'cropCallback'?: any;
-    'currentElementTag'?: string;
-    'locale'?: string;
-    'parentComponentContext'?: any;
-    'parentElementTag'?: string;
-    'src'?: string;
-  }
-
   interface ImageFilterComponent {
     'currentElementTag': string;
     'filterCallback': any;
@@ -65,15 +38,6 @@ export namespace Components {
     'parentElementTag': string;
     'src': string;
   }
-  interface ImageFilterComponentAttributes extends StencilHTMLAttributes {
-    'currentElementTag'?: string;
-    'filterCallback'?: any;
-    'locale'?: string;
-    'parentComponentContext'?: any;
-    'parentElementTag'?: string;
-    'src'?: string;
-  }
-
   interface ImageSegmentationAdjustmentComponent {
     'currentElementTag': string;
     'imageAdjustmentCallback': any;
@@ -83,23 +47,9 @@ export namespace Components {
     'saveAdjustedImageCallback': any;
     'segmentedImage': any;
   }
-  interface ImageSegmentationAdjustmentComponentAttributes extends StencilHTMLAttributes {
-    'currentElementTag'?: string;
-    'imageAdjustmentCallback'?: any;
-    'originalImage'?: any;
-    'parentComponentContext'?: any;
-    'parentElementTag'?: string;
-    'saveAdjustedImageCallback'?: any;
-    'segmentedImage'?: any;
-  }
-
   interface LoaderComponent {
     'enabled': boolean;
   }
-  interface LoaderComponentAttributes extends StencilHTMLAttributes {
-    'enabled'?: boolean;
-  }
-
   interface MyComponent {
     /**
     * The first name
@@ -114,30 +64,13 @@ export namespace Components {
     */
     'middle': string;
   }
-  interface MyComponentAttributes extends StencilHTMLAttributes {
-    /**
-    * The first name
-    */
-    'first'?: string;
-    /**
-    * The last name
-    */
-    'last'?: string;
-    /**
-    * The middle name
-    */
-    'middle'?: string;
-  }
-
   interface NotificationComponent {
     'notificationType': string;
     'text': string;
   }
-  interface NotificationComponentAttributes extends StencilHTMLAttributes {
-    'notificationType'?: string;
-    'text'?: string;
+  interface OpenbioFace {
+    'locale': string;
   }
-
   interface OpenbioFaceAuth {
     'cpf': string;
     'hiddenCamera': boolean;
@@ -147,17 +80,6 @@ export namespace Components {
     'personName': string;
     'useOpenbioMatcher': boolean;
   }
-  interface OpenbioFaceAuthAttributes extends StencilHTMLAttributes {
-    'cpf'?: string;
-    'hiddenCamera'?: boolean;
-    'isDebug'?: boolean;
-    'locale'?: string;
-    'onOnMatcherResult'?: (event: CustomEvent<any>) => void;
-    'personImage'?: string;
-    'personName'?: string;
-    'useOpenbioMatcher'?: boolean;
-  }
-
   interface OpenbioFaceDetails {
     'detached': boolean;
     'isTagComponent': boolean;
@@ -165,21 +87,6 @@ export namespace Components {
     'tempFace': any;
     'tempPerson': any;
   }
-  interface OpenbioFaceDetailsAttributes extends StencilHTMLAttributes {
-    'detached'?: boolean;
-    'isTagComponent'?: boolean;
-    'locale'?: string;
-    'tempFace'?: any;
-    'tempPerson'?: any;
-  }
-
-  interface OpenbioFace {
-    'locale': string;
-  }
-  interface OpenbioFaceAttributes extends StencilHTMLAttributes {
-    'locale'?: string;
-  }
-
   interface OpenbioFaceValidationBoxComponent {
     'detached': boolean;
     'leftIcon': boolean;
@@ -188,15 +95,9 @@ export namespace Components {
     'type': string;
     'typeTitle': string;
   }
-  interface OpenbioFaceValidationBoxComponentAttributes extends StencilHTMLAttributes {
-    'detached'?: boolean;
-    'leftIcon'?: boolean;
-    'locale'?: string;
-    'status'?: any;
-    'type'?: string;
-    'typeTitle'?: string;
+  interface OpenbioFinger {
+    'locale': string;
   }
-
   interface OpenbioFingerAuth {
     'cpf': string;
     'isDebug': boolean;
@@ -205,17 +106,6 @@ export namespace Components {
     'personName': string;
     'useOpenbioMatcher': boolean;
   }
-  interface OpenbioFingerAuthAttributes extends StencilHTMLAttributes {
-    'cpf'?: string;
-    'isDebug'?: boolean;
-    'locale'?: string;
-    'onOnCaptureFingerprintResult'?: (event: CustomEvent<any>) => void;
-    'onOnMatcherResult'?: (event: CustomEvent<any>) => void;
-    'personImage'?: string;
-    'personName'?: string;
-    'useOpenbioMatcher'?: boolean;
-  }
-
   interface OpenbioFingerDetails {
     'cpf': string;
     'detached': boolean;
@@ -231,29 +121,6 @@ export namespace Components {
     'tempPerson': any;
     'useOpenbioMatcher': boolean;
   }
-  interface OpenbioFingerDetailsAttributes extends StencilHTMLAttributes {
-    'cpf'?: string;
-    'detached'?: boolean;
-    'fingerCaptureType'?: number;
-    'isTagComponent'?: boolean;
-    'locale'?: string;
-    'onCaptureFingerprint'?: Function;
-    'onOpenbioMatcher'?: Function;
-    'personImage'?: string;
-    'personName'?: string;
-    'singleCapture'?: boolean;
-    'tempFingers'?: any;
-    'tempPerson'?: any;
-    'useOpenbioMatcher'?: boolean;
-  }
-
-  interface OpenbioFinger {
-    'locale': string;
-  }
-  interface OpenbioFingerAttributes extends StencilHTMLAttributes {
-    'locale'?: string;
-  }
-
   interface OpenbioFingerImageComponent {
     'allowUpload': boolean;
     'editFingerCallback': any;
@@ -264,17 +131,9 @@ export namespace Components {
     'parentComponentContext': any;
     'uploadFingerImageCallback': any;
   }
-  interface OpenbioFingerImageComponentAttributes extends StencilHTMLAttributes {
-    'allowUpload'?: boolean;
-    'editFingerCallback'?: any;
-    'finger'?: any;
-    'fingerIndex'?: number;
-    'fingerName'?: string;
-    'locale'?: string;
-    'parentComponentContext'?: any;
-    'uploadFingerImageCallback'?: any;
+  interface OpenbioMugshot {
+    'locale': string;
   }
-
   interface OpenbioMugshotDetails {
     'allowConfiguration': any;
     'detached': boolean;
@@ -283,22 +142,6 @@ export namespace Components {
     'tempMugshotPhotos': any;
     'tempPerson': any;
   }
-  interface OpenbioMugshotDetailsAttributes extends StencilHTMLAttributes {
-    'allowConfiguration'?: any;
-    'detached'?: boolean;
-    'isTagComponent'?: boolean;
-    'locale'?: string;
-    'tempMugshotPhotos'?: any;
-    'tempPerson'?: any;
-  }
-
-  interface OpenbioMugshot {
-    'locale': string;
-  }
-  interface OpenbioMugshotAttributes extends StencilHTMLAttributes {
-    'locale'?: string;
-  }
-
   interface OpenbioOmaFace {
     'action': 'REGISTER' | 'VERIFY';
     'allowLivenessNoncompliance': boolean;
@@ -318,42 +161,16 @@ export namespace Components {
     'textColor': string;
     'token': string;
   }
-  interface OpenbioOmaFaceAttributes extends StencilHTMLAttributes {
-    'action'?: 'REGISTER' | 'VERIFY';
-    'allowLivenessNoncompliance'?: boolean;
-    'allowNoncomplianceRecordUpdate'?: boolean;
-    'callback'?: Function;
-    'cameraHeight'?: number;
-    'cameraWidth'?: number;
-    'containerBackgroundColor'?: string;
-    'headerTitle'?: string;
-    'livenessMin'?: number;
-    'locale'?: string;
-    'primaryColor'?: string;
-    'projectId'?: string;
-    'recordId'?: string;
-    'requestKey'?: string;
-    'showHeader'?: boolean;
-    'textColor'?: string;
-    'token'?: string;
-  }
-
+  interface OpenbioScanner {}
   interface OpenbioScannerDetails {
     'detached': boolean;
     'isTagComponent': boolean;
     'locale': string;
     'tempPerson': any;
   }
-  interface OpenbioScannerDetailsAttributes extends StencilHTMLAttributes {
-    'detached'?: boolean;
-    'isTagComponent'?: boolean;
-    'locale'?: string;
-    'tempPerson'?: any;
+  interface OpenbioSignature {
+    'locale': string;
   }
-
-  interface OpenbioScanner {}
-  interface OpenbioScannerAttributes extends StencilHTMLAttributes {}
-
   interface OpenbioSignatureDetails {
     'detached': boolean;
     'isTagComponent': boolean;
@@ -361,74 +178,9 @@ export namespace Components {
     'tempPerson': any;
     'tempSignature': any;
   }
-  interface OpenbioSignatureDetailsAttributes extends StencilHTMLAttributes {
-    'detached'?: boolean;
-    'isTagComponent'?: boolean;
-    'locale'?: string;
-    'tempPerson'?: any;
-    'tempSignature'?: any;
-  }
-
-  interface OpenbioSignature {
-    'locale': string;
-  }
-  interface OpenbioSignatureAttributes extends StencilHTMLAttributes {
-    'locale'?: string;
-  }
 }
 
 declare global {
-  interface StencilElementInterfaces {
-    'CnhPreview': Components.CnhPreview;
-    'HelpComponent': Components.HelpComponent;
-    'ImageCropperComponent': Components.ImageCropperComponent;
-    'ImageFilterComponent': Components.ImageFilterComponent;
-    'ImageSegmentationAdjustmentComponent': Components.ImageSegmentationAdjustmentComponent;
-    'LoaderComponent': Components.LoaderComponent;
-    'MyComponent': Components.MyComponent;
-    'NotificationComponent': Components.NotificationComponent;
-    'OpenbioFaceAuth': Components.OpenbioFaceAuth;
-    'OpenbioFaceDetails': Components.OpenbioFaceDetails;
-    'OpenbioFace': Components.OpenbioFace;
-    'OpenbioFaceValidationBoxComponent': Components.OpenbioFaceValidationBoxComponent;
-    'OpenbioFingerAuth': Components.OpenbioFingerAuth;
-    'OpenbioFingerDetails': Components.OpenbioFingerDetails;
-    'OpenbioFinger': Components.OpenbioFinger;
-    'OpenbioFingerImageComponent': Components.OpenbioFingerImageComponent;
-    'OpenbioMugshotDetails': Components.OpenbioMugshotDetails;
-    'OpenbioMugshot': Components.OpenbioMugshot;
-    'OpenbioOmaFace': Components.OpenbioOmaFace;
-    'OpenbioScannerDetails': Components.OpenbioScannerDetails;
-    'OpenbioScanner': Components.OpenbioScanner;
-    'OpenbioSignatureDetails': Components.OpenbioSignatureDetails;
-    'OpenbioSignature': Components.OpenbioSignature;
-  }
-
-  interface StencilIntrinsicElements {
-    'cnh-preview': Components.CnhPreviewAttributes;
-    'help-component': Components.HelpComponentAttributes;
-    'image-cropper-component': Components.ImageCropperComponentAttributes;
-    'image-filter-component': Components.ImageFilterComponentAttributes;
-    'image-segmentation-adjustment-component': Components.ImageSegmentationAdjustmentComponentAttributes;
-    'loader-component': Components.LoaderComponentAttributes;
-    'my-component': Components.MyComponentAttributes;
-    'notification-component': Components.NotificationComponentAttributes;
-    'openbio-face-auth': Components.OpenbioFaceAuthAttributes;
-    'openbio-face-details': Components.OpenbioFaceDetailsAttributes;
-    'openbio-face': Components.OpenbioFaceAttributes;
-    'openbio-face-validation-box-component': Components.OpenbioFaceValidationBoxComponentAttributes;
-    'openbio-finger-auth': Components.OpenbioFingerAuthAttributes;
-    'openbio-finger-details': Components.OpenbioFingerDetailsAttributes;
-    'openbio-finger': Components.OpenbioFingerAttributes;
-    'openbio-finger-image-component': Components.OpenbioFingerImageComponentAttributes;
-    'openbio-mugshot-details': Components.OpenbioMugshotDetailsAttributes;
-    'openbio-mugshot': Components.OpenbioMugshotAttributes;
-    'openbio-oma-face': Components.OpenbioOmaFaceAttributes;
-    'openbio-scanner-details': Components.OpenbioScannerDetailsAttributes;
-    'openbio-scanner': Components.OpenbioScannerAttributes;
-    'openbio-signature-details': Components.OpenbioSignatureDetailsAttributes;
-    'openbio-signature': Components.OpenbioSignatureAttributes;
-  }
 
 
   interface HTMLCnhPreviewElement extends Components.CnhPreview, HTMLStencilElement {}
@@ -479,6 +231,12 @@ declare global {
     new (): HTMLNotificationComponentElement;
   };
 
+  interface HTMLOpenbioFaceElement extends Components.OpenbioFace, HTMLStencilElement {}
+  var HTMLOpenbioFaceElement: {
+    prototype: HTMLOpenbioFaceElement;
+    new (): HTMLOpenbioFaceElement;
+  };
+
   interface HTMLOpenbioFaceAuthElement extends Components.OpenbioFaceAuth, HTMLStencilElement {}
   var HTMLOpenbioFaceAuthElement: {
     prototype: HTMLOpenbioFaceAuthElement;
@@ -491,16 +249,16 @@ declare global {
     new (): HTMLOpenbioFaceDetailsElement;
   };
 
-  interface HTMLOpenbioFaceElement extends Components.OpenbioFace, HTMLStencilElement {}
-  var HTMLOpenbioFaceElement: {
-    prototype: HTMLOpenbioFaceElement;
-    new (): HTMLOpenbioFaceElement;
-  };
-
   interface HTMLOpenbioFaceValidationBoxComponentElement extends Components.OpenbioFaceValidationBoxComponent, HTMLStencilElement {}
   var HTMLOpenbioFaceValidationBoxComponentElement: {
     prototype: HTMLOpenbioFaceValidationBoxComponentElement;
     new (): HTMLOpenbioFaceValidationBoxComponentElement;
+  };
+
+  interface HTMLOpenbioFingerElement extends Components.OpenbioFinger, HTMLStencilElement {}
+  var HTMLOpenbioFingerElement: {
+    prototype: HTMLOpenbioFingerElement;
+    new (): HTMLOpenbioFingerElement;
   };
 
   interface HTMLOpenbioFingerAuthElement extends Components.OpenbioFingerAuth, HTMLStencilElement {}
@@ -515,22 +273,10 @@ declare global {
     new (): HTMLOpenbioFingerDetailsElement;
   };
 
-  interface HTMLOpenbioFingerElement extends Components.OpenbioFinger, HTMLStencilElement {}
-  var HTMLOpenbioFingerElement: {
-    prototype: HTMLOpenbioFingerElement;
-    new (): HTMLOpenbioFingerElement;
-  };
-
   interface HTMLOpenbioFingerImageComponentElement extends Components.OpenbioFingerImageComponent, HTMLStencilElement {}
   var HTMLOpenbioFingerImageComponentElement: {
     prototype: HTMLOpenbioFingerImageComponentElement;
     new (): HTMLOpenbioFingerImageComponentElement;
-  };
-
-  interface HTMLOpenbioMugshotDetailsElement extends Components.OpenbioMugshotDetails, HTMLStencilElement {}
-  var HTMLOpenbioMugshotDetailsElement: {
-    prototype: HTMLOpenbioMugshotDetailsElement;
-    new (): HTMLOpenbioMugshotDetailsElement;
   };
 
   interface HTMLOpenbioMugshotElement extends Components.OpenbioMugshot, HTMLStencilElement {}
@@ -539,16 +285,16 @@ declare global {
     new (): HTMLOpenbioMugshotElement;
   };
 
+  interface HTMLOpenbioMugshotDetailsElement extends Components.OpenbioMugshotDetails, HTMLStencilElement {}
+  var HTMLOpenbioMugshotDetailsElement: {
+    prototype: HTMLOpenbioMugshotDetailsElement;
+    new (): HTMLOpenbioMugshotDetailsElement;
+  };
+
   interface HTMLOpenbioOmaFaceElement extends Components.OpenbioOmaFace, HTMLStencilElement {}
   var HTMLOpenbioOmaFaceElement: {
     prototype: HTMLOpenbioOmaFaceElement;
     new (): HTMLOpenbioOmaFaceElement;
-  };
-
-  interface HTMLOpenbioScannerDetailsElement extends Components.OpenbioScannerDetails, HTMLStencilElement {}
-  var HTMLOpenbioScannerDetailsElement: {
-    prototype: HTMLOpenbioScannerDetailsElement;
-    new (): HTMLOpenbioScannerDetailsElement;
   };
 
   interface HTMLOpenbioScannerElement extends Components.OpenbioScanner, HTMLStencilElement {}
@@ -557,10 +303,10 @@ declare global {
     new (): HTMLOpenbioScannerElement;
   };
 
-  interface HTMLOpenbioSignatureDetailsElement extends Components.OpenbioSignatureDetails, HTMLStencilElement {}
-  var HTMLOpenbioSignatureDetailsElement: {
-    prototype: HTMLOpenbioSignatureDetailsElement;
-    new (): HTMLOpenbioSignatureDetailsElement;
+  interface HTMLOpenbioScannerDetailsElement extends Components.OpenbioScannerDetails, HTMLStencilElement {}
+  var HTMLOpenbioScannerDetailsElement: {
+    prototype: HTMLOpenbioScannerDetailsElement;
+    new (): HTMLOpenbioScannerDetailsElement;
   };
 
   interface HTMLOpenbioSignatureElement extends Components.OpenbioSignature, HTMLStencilElement {}
@@ -569,33 +315,12 @@ declare global {
     new (): HTMLOpenbioSignatureElement;
   };
 
+  interface HTMLOpenbioSignatureDetailsElement extends Components.OpenbioSignatureDetails, HTMLStencilElement {}
+  var HTMLOpenbioSignatureDetailsElement: {
+    prototype: HTMLOpenbioSignatureDetailsElement;
+    new (): HTMLOpenbioSignatureDetailsElement;
+  };
   interface HTMLElementTagNameMap {
-    'cnh-preview': HTMLCnhPreviewElement
-    'help-component': HTMLHelpComponentElement
-    'image-cropper-component': HTMLImageCropperComponentElement
-    'image-filter-component': HTMLImageFilterComponentElement
-    'image-segmentation-adjustment-component': HTMLImageSegmentationAdjustmentComponentElement
-    'loader-component': HTMLLoaderComponentElement
-    'my-component': HTMLMyComponentElement
-    'notification-component': HTMLNotificationComponentElement
-    'openbio-face-auth': HTMLOpenbioFaceAuthElement
-    'openbio-face-details': HTMLOpenbioFaceDetailsElement
-    'openbio-face': HTMLOpenbioFaceElement
-    'openbio-face-validation-box-component': HTMLOpenbioFaceValidationBoxComponentElement
-    'openbio-finger-auth': HTMLOpenbioFingerAuthElement
-    'openbio-finger-details': HTMLOpenbioFingerDetailsElement
-    'openbio-finger': HTMLOpenbioFingerElement
-    'openbio-finger-image-component': HTMLOpenbioFingerImageComponentElement
-    'openbio-mugshot-details': HTMLOpenbioMugshotDetailsElement
-    'openbio-mugshot': HTMLOpenbioMugshotElement
-    'openbio-oma-face': HTMLOpenbioOmaFaceElement
-    'openbio-scanner-details': HTMLOpenbioScannerDetailsElement
-    'openbio-scanner': HTMLOpenbioScannerElement
-    'openbio-signature-details': HTMLOpenbioSignatureDetailsElement
-    'openbio-signature': HTMLOpenbioSignatureElement
-  }
-
-  interface ElementTagNameMap {
     'cnh-preview': HTMLCnhPreviewElement;
     'help-component': HTMLHelpComponentElement;
     'image-cropper-component': HTMLImageCropperComponentElement;
@@ -604,22 +329,232 @@ declare global {
     'loader-component': HTMLLoaderComponentElement;
     'my-component': HTMLMyComponentElement;
     'notification-component': HTMLNotificationComponentElement;
+    'openbio-face': HTMLOpenbioFaceElement;
     'openbio-face-auth': HTMLOpenbioFaceAuthElement;
     'openbio-face-details': HTMLOpenbioFaceDetailsElement;
-    'openbio-face': HTMLOpenbioFaceElement;
     'openbio-face-validation-box-component': HTMLOpenbioFaceValidationBoxComponentElement;
+    'openbio-finger': HTMLOpenbioFingerElement;
     'openbio-finger-auth': HTMLOpenbioFingerAuthElement;
     'openbio-finger-details': HTMLOpenbioFingerDetailsElement;
-    'openbio-finger': HTMLOpenbioFingerElement;
     'openbio-finger-image-component': HTMLOpenbioFingerImageComponentElement;
-    'openbio-mugshot-details': HTMLOpenbioMugshotDetailsElement;
     'openbio-mugshot': HTMLOpenbioMugshotElement;
+    'openbio-mugshot-details': HTMLOpenbioMugshotDetailsElement;
     'openbio-oma-face': HTMLOpenbioOmaFaceElement;
-    'openbio-scanner-details': HTMLOpenbioScannerDetailsElement;
     'openbio-scanner': HTMLOpenbioScannerElement;
-    'openbio-signature-details': HTMLOpenbioSignatureDetailsElement;
+    'openbio-scanner-details': HTMLOpenbioScannerDetailsElement;
     'openbio-signature': HTMLOpenbioSignatureElement;
+    'openbio-signature-details': HTMLOpenbioSignatureDetailsElement;
+  }
+}
+
+declare namespace LocalJSX {
+  interface CnhPreview extends JSXBase.HTMLAttributes<HTMLCnhPreviewElement> {
+    'inputSignature'?: any;
+    'person'?: any;
+    'photo'?: any;
+    'size'?: PreviewSize;
+  }
+  interface HelpComponent extends JSXBase.HTMLAttributes<HTMLHelpComponentElement> {
+    'helpText'?: string;
+    'locale'?: string;
+    'src'?: string;
+  }
+  interface ImageCropperComponent extends JSXBase.HTMLAttributes<HTMLImageCropperComponentElement> {
+    'aspectRatio'?: any;
+    'cropBoxResizable'?: boolean;
+    'cropCallback'?: any;
+    'currentElementTag'?: string;
+    'locale'?: string;
+    'parentComponentContext'?: any;
+    'parentElementTag'?: string;
+    'src'?: string;
+  }
+  interface ImageFilterComponent extends JSXBase.HTMLAttributes<HTMLImageFilterComponentElement> {
+    'currentElementTag'?: string;
+    'filterCallback'?: any;
+    'locale'?: string;
+    'parentComponentContext'?: any;
+    'parentElementTag'?: string;
+    'src'?: string;
+  }
+  interface ImageSegmentationAdjustmentComponent extends JSXBase.HTMLAttributes<HTMLImageSegmentationAdjustmentComponentElement> {
+    'currentElementTag'?: string;
+    'imageAdjustmentCallback'?: any;
+    'originalImage'?: any;
+    'parentComponentContext'?: any;
+    'parentElementTag'?: string;
+    'saveAdjustedImageCallback'?: any;
+    'segmentedImage'?: any;
+  }
+  interface LoaderComponent extends JSXBase.HTMLAttributes<HTMLLoaderComponentElement> {
+    'enabled'?: boolean;
+  }
+  interface MyComponent extends JSXBase.HTMLAttributes<HTMLMyComponentElement> {
+    /**
+    * The first name
+    */
+    'first'?: string;
+    /**
+    * The last name
+    */
+    'last'?: string;
+    /**
+    * The middle name
+    */
+    'middle'?: string;
+  }
+  interface NotificationComponent extends JSXBase.HTMLAttributes<HTMLNotificationComponentElement> {
+    'notificationType'?: string;
+    'text'?: string;
+  }
+  interface OpenbioFace extends JSXBase.HTMLAttributes<HTMLOpenbioFaceElement> {
+    'locale'?: string;
+  }
+  interface OpenbioFaceAuth extends JSXBase.HTMLAttributes<HTMLOpenbioFaceAuthElement> {
+    'cpf'?: string;
+    'hiddenCamera'?: boolean;
+    'isDebug'?: boolean;
+    'locale'?: string;
+    'onOnMatcherResult'?: (event: CustomEvent<any>) => void;
+    'personImage'?: string;
+    'personName'?: string;
+    'useOpenbioMatcher'?: boolean;
+  }
+  interface OpenbioFaceDetails extends JSXBase.HTMLAttributes<HTMLOpenbioFaceDetailsElement> {
+    'detached'?: boolean;
+    'isTagComponent'?: boolean;
+    'locale'?: string;
+    'tempFace'?: any;
+    'tempPerson'?: any;
+  }
+  interface OpenbioFaceValidationBoxComponent extends JSXBase.HTMLAttributes<HTMLOpenbioFaceValidationBoxComponentElement> {
+    'detached'?: boolean;
+    'leftIcon'?: boolean;
+    'locale'?: string;
+    'status'?: any;
+    'type'?: string;
+    'typeTitle'?: string;
+  }
+  interface OpenbioFinger extends JSXBase.HTMLAttributes<HTMLOpenbioFingerElement> {
+    'locale'?: string;
+  }
+  interface OpenbioFingerAuth extends JSXBase.HTMLAttributes<HTMLOpenbioFingerAuthElement> {
+    'cpf'?: string;
+    'isDebug'?: boolean;
+    'locale'?: string;
+    'onOnCaptureFingerprintResult'?: (event: CustomEvent<any>) => void;
+    'onOnMatcherResult'?: (event: CustomEvent<any>) => void;
+    'personImage'?: string;
+    'personName'?: string;
+    'useOpenbioMatcher'?: boolean;
+  }
+  interface OpenbioFingerDetails extends JSXBase.HTMLAttributes<HTMLOpenbioFingerDetailsElement> {
+    'cpf'?: string;
+    'detached'?: boolean;
+    'fingerCaptureType'?: number;
+    'isTagComponent'?: boolean;
+    'locale'?: string;
+    'onCaptureFingerprint'?: Function;
+    'onOpenbioMatcher'?: Function;
+    'personImage'?: string;
+    'personName'?: string;
+    'singleCapture'?: boolean;
+    'tempFingers'?: any;
+    'tempPerson'?: any;
+    'useOpenbioMatcher'?: boolean;
+  }
+  interface OpenbioFingerImageComponent extends JSXBase.HTMLAttributes<HTMLOpenbioFingerImageComponentElement> {
+    'allowUpload'?: boolean;
+    'editFingerCallback'?: any;
+    'finger'?: any;
+    'fingerIndex'?: number;
+    'fingerName'?: string;
+    'locale'?: string;
+    'parentComponentContext'?: any;
+    'uploadFingerImageCallback'?: any;
+  }
+  interface OpenbioMugshot extends JSXBase.HTMLAttributes<HTMLOpenbioMugshotElement> {
+    'locale'?: string;
+  }
+  interface OpenbioMugshotDetails extends JSXBase.HTMLAttributes<HTMLOpenbioMugshotDetailsElement> {
+    'allowConfiguration'?: any;
+    'detached'?: boolean;
+    'isTagComponent'?: boolean;
+    'locale'?: string;
+    'tempMugshotPhotos'?: any;
+    'tempPerson'?: any;
+  }
+  interface OpenbioOmaFace extends JSXBase.HTMLAttributes<HTMLOpenbioOmaFaceElement> {
+    'action'?: 'REGISTER' | 'VERIFY';
+    'allowLivenessNoncompliance'?: boolean;
+    'allowNoncomplianceRecordUpdate'?: boolean;
+    'callback'?: Function;
+    'cameraHeight'?: number;
+    'cameraWidth'?: number;
+    'containerBackgroundColor'?: string;
+    'headerTitle'?: string;
+    'livenessMin'?: number;
+    'locale'?: string;
+    'primaryColor'?: string;
+    'projectId'?: string;
+    'recordId'?: string;
+    'requestKey'?: string;
+    'showHeader'?: boolean;
+    'textColor'?: string;
+    'token'?: string;
+  }
+  interface OpenbioScanner extends JSXBase.HTMLAttributes<HTMLOpenbioScannerElement> {}
+  interface OpenbioScannerDetails extends JSXBase.HTMLAttributes<HTMLOpenbioScannerDetailsElement> {
+    'detached'?: boolean;
+    'isTagComponent'?: boolean;
+    'locale'?: string;
+    'tempPerson'?: any;
+  }
+  interface OpenbioSignature extends JSXBase.HTMLAttributes<HTMLOpenbioSignatureElement> {
+    'locale'?: string;
+  }
+  interface OpenbioSignatureDetails extends JSXBase.HTMLAttributes<HTMLOpenbioSignatureDetailsElement> {
+    'detached'?: boolean;
+    'isTagComponent'?: boolean;
+    'locale'?: string;
+    'tempPerson'?: any;
+    'tempSignature'?: any;
   }
 
-
+  interface IntrinsicElements {
+    'cnh-preview': CnhPreview;
+    'help-component': HelpComponent;
+    'image-cropper-component': ImageCropperComponent;
+    'image-filter-component': ImageFilterComponent;
+    'image-segmentation-adjustment-component': ImageSegmentationAdjustmentComponent;
+    'loader-component': LoaderComponent;
+    'my-component': MyComponent;
+    'notification-component': NotificationComponent;
+    'openbio-face': OpenbioFace;
+    'openbio-face-auth': OpenbioFaceAuth;
+    'openbio-face-details': OpenbioFaceDetails;
+    'openbio-face-validation-box-component': OpenbioFaceValidationBoxComponent;
+    'openbio-finger': OpenbioFinger;
+    'openbio-finger-auth': OpenbioFingerAuth;
+    'openbio-finger-details': OpenbioFingerDetails;
+    'openbio-finger-image-component': OpenbioFingerImageComponent;
+    'openbio-mugshot': OpenbioMugshot;
+    'openbio-mugshot-details': OpenbioMugshotDetails;
+    'openbio-oma-face': OpenbioOmaFace;
+    'openbio-scanner': OpenbioScanner;
+    'openbio-scanner-details': OpenbioScannerDetails;
+    'openbio-signature': OpenbioSignature;
+    'openbio-signature-details': OpenbioSignatureDetails;
+  }
 }
+
+export { LocalJSX as JSX };
+
+
+declare module "@stencil/core" {
+  export namespace JSX {
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
+  }
+}
+
+

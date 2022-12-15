@@ -1,4 +1,4 @@
-import '../../stencil.core';
+import { HTMLStencilElement } from '../../stencil.core';
 export declare class GuideImageComponent {
     componentContainer: HTMLStencilElement;
     src: string;
@@ -21,5 +21,5 @@ export declare class GuideImageComponent {
     textInput(filter: any, event: any): void;
     checkInput(filter: any, event: any): void;
     getFilters(): any;
-    render(): JSX.Element;
+    render(): any;
 }

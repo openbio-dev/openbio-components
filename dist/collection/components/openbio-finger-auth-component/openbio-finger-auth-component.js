@@ -1,3 +1,4 @@
+import { h } from "@stencil/core";
 import { showImage } from "../../utils/canvas";
 import constants from "../../utils/constants";
 import { notify } from '../../utils/notifier';
@@ -176,7 +177,7 @@ export class OpenbioFingerAuthComponent {
         this.payload.action = "close-component";
         this.payload.data = {
             type: "authenticate",
-            owner: "default-user"
+            owner: "default-user" // #TODO replace this with a authenticated user
         };
         this.ws.respondToDeviceWS(this.payload);
     }
@@ -373,7 +374,7 @@ export class OpenbioFingerAuthComponent {
             return;
         }
         try {
-            this.person = await getPeople(this.cpfState);
+            this.person = await getPeople(this.cpfState); // hc ROLLED until we allow set from prop
             if (this.person.error) {
                 this.showFullscreenLoader = false;
                 Swal.fire({
@@ -401,6 +402,23 @@ export class OpenbioFingerAuthComponent {
                 });
                 return;
             }
+            // const pinchIndexes = [0, 1, 2, 5, 6, 7];
+            // const fingerBiometries = fingerBiometry.FingerprintBiometries.map(item => item.finger_index)
+            //   .sort((a, b) => a - b);
+            // if (!fingerBiometries.length) {
+            //   Swal.fire({
+            //     type: "warning",
+            //     text: "Este cadastro não possui digitais cadastradas.",
+            //     allowOutsideClick: false,
+            //     allowEscapeKey: false,
+            //     allowEnterKey: false,
+            //   }).then(() => {
+            //     this.closeComponent();
+            //   });
+            //   return;
+            // }
+            // const randomIndex = Math.floor(Math.random() * pinchIndexes.length);
+            // const index = fingerBiometries[pinchIndexes[randomIndex]];
             this.selectedFinger = {
                 index: -1,
                 name: ""
@@ -548,121 +566,177 @@ export class OpenbioFingerAuthComponent {
     }
     static get is() { return "openbio-finger-auth"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["openbio-finger-auth-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["openbio-finger-auth-component.css"]
+    }; }
     static get properties() { return {
-        "captureMessage": {
-            "state": true
-        },
-        "captureType": {
-            "state": true
-        },
-        "componentContainer": {
-            "elementRef": true
+        "useOpenbioMatcher": {
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "use-openbio-matcher",
+            "reflect": false
         },
         "cpf": {
-            "type": String,
-            "attr": "cpf"
-        },
-        "cpfState": {
-            "state": true
-        },
-        "currentFingerImage": {
-            "state": true
-        },
-        "debug": {
-            "state": true
-        },
-        "deviceBrand": {
-            "state": true
-        },
-        "deviceModel": {
-            "state": true
-        },
-        "deviceSerial": {
-            "state": true
-        },
-        "fingerAuthenticate": {
-            "state": true
-        },
-        "fingerAuthenticationSimilarity": {
-            "state": true
-        },
-        "fingerNfiqScore": {
-            "state": true
-        },
-        "fingerOriginalImage": {
-            "state": true
-        },
-        "fingerPreviewCurrentRollingStatus": {
-            "state": true
-        },
-        "fingerPreviewCurrentStatusLineX": {
-            "state": true
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "cpf",
+            "reflect": false
         },
         "isDebug": {
-            "type": Boolean,
-            "attr": "is-debug"
-        },
-        "locale": {
-            "type": String,
-            "attr": "locale",
-            "mutable": true,
-            "watchCallbacks": ["listenLocale"]
-        },
-        "modalSettings": {
-            "state": true
-        },
-        "person": {
-            "state": true
-        },
-        "personImage": {
-            "type": String,
-            "attr": "person-image"
-        },
-        "personImageState": {
-            "state": true
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "is-debug",
+            "reflect": false
         },
         "personName": {
-            "type": String,
-            "attr": "person-name"
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "person-name",
+            "reflect": false
         },
-        "personNameState": {
-            "state": true
+        "personImage": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "person-image",
+            "reflect": false
         },
-        "ready": {
-            "state": true
-        },
-        "selectedFinger": {
-            "state": true
-        },
-        "showFullscreenLoader": {
-            "state": true
-        },
-        "thresholdAuthenticate": {
-            "state": true
-        },
-        "translations": {
-            "state": true
-        },
-        "useOpenbioMatcher": {
-            "type": Boolean,
-            "attr": "use-openbio-matcher"
-        },
-        "useOpenbioMatcherState": {
-            "state": true
+        "locale": {
+            "type": "string",
+            "mutable": true,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "locale",
+            "reflect": false,
+            "defaultValue": "'pt'"
         }
     }; }
+    static get states() { return {
+        "showFullscreenLoader": {},
+        "modalSettings": {},
+        "fingerPreviewCurrentRollingStatus": {},
+        "fingerPreviewCurrentStatusLineX": {},
+        "fingerNfiqScore": {},
+        "fingerAuthenticationSimilarity": {},
+        "fingerOriginalImage": {},
+        "deviceModel": {},
+        "deviceBrand": {},
+        "deviceSerial": {},
+        "captureType": {},
+        "selectedFinger": {},
+        "currentFingerImage": {},
+        "useOpenbioMatcherState": {},
+        "cpfState": {},
+        "personNameState": {},
+        "personImageState": {},
+        "debug": {},
+        "fingerAuthenticate": {},
+        "thresholdAuthenticate": {},
+        "captureMessage": {},
+        "person": {},
+        "ready": {},
+        "translations": {}
+    }; }
     static get events() { return [{
-            "name": "onMatcherResult",
             "method": "onMatcherResult",
+            "name": "onMatcherResult",
             "bubbles": true,
             "cancelable": true,
-            "composed": true
+            "composed": true,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            }
         }, {
-            "name": "onCaptureFingerprintResult",
             "method": "onCaptureFingerprintResult",
+            "name": "onCaptureFingerprintResult",
             "bubbles": true,
             "cancelable": true,
-            "composed": true
+            "composed": true,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            }
         }]; }
-    static get style() { return "/**style-placeholder:openbio-finger-auth:**/"; }
+    static get elementRef() { return "componentContainer"; }
+    static get watchers() { return [{
+            "propName": "locale",
+            "methodName": "listenLocale"
+        }]; }
 }

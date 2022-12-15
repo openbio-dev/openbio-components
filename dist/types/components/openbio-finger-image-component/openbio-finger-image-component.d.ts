@@ -1,4 +1,4 @@
-import '../../stencil.core';
+import { HTMLStencilElement } from '../../stencil.core';
 export declare class OpenbioFingerImageComponent {
     componentContainer: HTMLStencilElement;
     finger: any;
@@ -18,5 +18,5 @@ export declare class OpenbioFingerImageComponent {
     showModal(): void;
     hideModal(): void;
     onInputChange(files: any): void;
-    render(): JSX.Element;
+    render(): any;
 }

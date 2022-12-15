@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 import WS from '../../utils/websocket';
 var WEB_SOCKET_ACTIONS;
 (function (WEB_SOCKET_ACTIONS) {
@@ -118,34 +119,88 @@ export class CnhPreviewComponent {
     }
     static get is() { return "cnh-preview"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["cnh-preview-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["cnh-preview-component.css"]
+    }; }
     static get properties() { return {
-        "cnhTemplate": {
-            "state": true
-        },
-        "componentContainer": {
-            "elementRef": true
-        },
-        "inputSignature": {
-            "type": "Any",
-            "attr": "input-signature"
-        },
         "person": {
-            "type": "Any",
-            "attr": "person",
-            "mutable": true
+            "type": "any",
+            "mutable": true,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "person",
+            "reflect": false
         },
         "photo": {
-            "type": "Any",
-            "attr": "photo"
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "photo",
+            "reflect": false
         },
-        "signature": {
-            "state": true
+        "inputSignature": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "input-signature",
+            "reflect": false
         },
         "size": {
-            "type": "Any",
-            "attr": "size",
-            "mutable": true
+            "type": "unknown",
+            "mutable": true,
+            "complexType": {
+                "original": "PreviewSize",
+                "resolved": "PreviewSize",
+                "references": {
+                    "PreviewSize": {
+                        "location": "global"
+                    }
+                }
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "defaultValue": "{\r\n    width: '300',\r\n    height: 'auto',\r\n  }"
         }
     }; }
-    static get style() { return "/**style-placeholder:cnh-preview:**/"; }
+    static get states() { return {
+        "cnhTemplate": {},
+        "signature": {}
+    }; }
+    static get elementRef() { return "componentContainer"; }
 }

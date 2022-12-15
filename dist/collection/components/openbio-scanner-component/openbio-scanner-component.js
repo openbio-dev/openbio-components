@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 import WS from '../../utils/websocket';
 export class OpenbioSignatureComponent {
     constructor() {
@@ -13,10 +14,11 @@ export class OpenbioSignatureComponent {
     }
     static get is() { return "openbio-scanner"; }
     static get encapsulation() { return "shadow"; }
-    static get properties() { return {
-        "componentContainer": {
-            "elementRef": true
-        }
+    static get originalStyleUrls() { return {
+        "$": ["openbio-scanner-component.scss"]
     }; }
-    static get style() { return "/**style-placeholder:openbio-scanner:**/"; }
+    static get styleUrls() { return {
+        "$": ["openbio-scanner-component.css"]
+    }; }
+    static get elementRef() { return "componentContainer"; }
 }

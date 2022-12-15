@@ -1,5 +1,5 @@
-import '../../stencil.core';
 import WS from '../../utils/websocket';
+import { HTMLStencilElement } from '../../stencil.core';
 export declare class OpenbioSignatureComponentDetails {
     ws: WS;
     private wsStatusInterval;
@@ -74,8 +74,8 @@ export declare class OpenbioSignatureComponentDetails {
     acceptData(): void;
     emitLoadInformation(): void;
     sendFingersInformation(finger: any): void;
-    saveFingersToSession(): Promise<{}>;
-    savePalmToSession(palm: any): Promise<{}>;
+    saveFingersToSession(): Promise<unknown>;
+    savePalmToSession(palm: any): Promise<unknown>;
     insertPalm(palm: any): void;
     setDeviceSelection(event: any): void;
     setFormTypeSelection(event: any): void;
@@ -92,17 +92,17 @@ export declare class OpenbioSignatureComponentDetails {
     showFingerSelectionRect(finger: any): void;
     showPalmSelectionRect(palm: any): void;
     palmSelection(): any;
-    fingerSelection(rightHand?: boolean): JSX.Element[];
-    fingerResult(rightHand?: boolean): JSX.Element[];
+    fingerSelection(rightHand?: boolean): any[];
+    fingerResult(rightHand?: boolean): any[];
     palmsResult(): any;
     retryManualCrop(): void;
-    getResult(): JSX.Element;
+    getResult(): any;
     isPalmCaptured(type: number): boolean;
     showModal(base64String: any): void;
     hideModal(): void;
-    palmCaptures(): JSX.Element;
+    palmCaptures(): any;
     getSelectedAnomaly(option: any): boolean;
     getSelectedPalmAnomaly(option: any): boolean;
     showSucessSaveMessage(): void;
-    render(): JSX.Element;
+    render(): any;
 }

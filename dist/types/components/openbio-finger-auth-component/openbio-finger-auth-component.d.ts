@@ -1,6 +1,6 @@
-import '../../stencil.core';
 import { EventEmitter } from "../../stencil.core";
 import WS from "../../utils/websocket";
+import { HTMLStencilElement } from "../../stencil.core";
 declare enum FlowTypes {
     FLOW_TYPE_TEN_FLAT_CAPTURES = 0,
     FLOW_TYPE_TEN_ROLLED_CAPTURES = 1,
@@ -103,6 +103,6 @@ export declare class OpenbioFingerAuthComponent {
     componentDidUnload(): void;
     applyCpfMask(cpf: string): string;
     getPersonPhoto(): string;
-    render(): JSX.Element;
+    render(): any;
 }
 export {};

@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 import { notify } from '../../utils/notifier';
 import { TranslationUtils } from '../../locales/translation';
 const BASE64_IMAGE = 'data:image/charset=UTF-8;png;base64,';
@@ -63,53 +64,159 @@ export class OpenbioFingerImageComponent {
     }
     static get is() { return "openbio-finger-image-component"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["openbio-finger-image-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["openbio-finger-image-component.css"]
+    }; }
     static get properties() { return {
-        "allowUpload": {
-            "type": Boolean,
-            "attr": "allow-upload"
-        },
-        "captureInput": {
-            "state": true
-        },
-        "componentContainer": {
-            "elementRef": true
-        },
-        "editFingerCallback": {
-            "type": "Any",
-            "attr": "edit-finger-callback"
-        },
         "finger": {
-            "type": "Any",
-            "attr": "finger"
-        },
-        "fingerIndex": {
-            "type": Number,
-            "attr": "finger-index"
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "finger",
+            "reflect": false
         },
         "fingerName": {
-            "type": String,
-            "attr": "finger-name"
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "finger-name",
+            "reflect": false
         },
-        "isModalShown": {
-            "state": true
+        "fingerIndex": {
+            "type": "number",
+            "mutable": false,
+            "complexType": {
+                "original": "number",
+                "resolved": "number",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "finger-index",
+            "reflect": false
         },
-        "locale": {
-            "type": String,
-            "attr": "locale",
-            "mutable": true,
-            "watchCallbacks": ["listenLocale"]
+        "editFingerCallback": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "edit-finger-callback",
+            "reflect": false
         },
         "parentComponentContext": {
-            "type": "Any",
-            "attr": "parent-component-context"
-        },
-        "translations": {
-            "state": true
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "parent-component-context",
+            "reflect": false
         },
         "uploadFingerImageCallback": {
-            "type": "Any",
-            "attr": "upload-finger-image-callback"
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "upload-finger-image-callback",
+            "reflect": false
+        },
+        "allowUpload": {
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "allow-upload",
+            "reflect": false
+        },
+        "locale": {
+            "type": "string",
+            "mutable": true,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "locale",
+            "reflect": false,
+            "defaultValue": "'pt'"
         }
     }; }
-    static get style() { return "/**style-placeholder:openbio-finger-image-component:**/"; }
+    static get states() { return {
+        "isModalShown": {},
+        "captureInput": {},
+        "translations": {}
+    }; }
+    static get elementRef() { return "componentContainer"; }
+    static get watchers() { return [{
+            "propName": "locale",
+            "methodName": "listenLocale"
+        }]; }
 }

@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 import { getFilters } from "./api";
 import Swal from 'sweetalert2/dist/sweetalert2.all.min.js';
 import { TranslationUtils } from '../../locales/translation';
@@ -136,42 +137,124 @@ export class GuideImageComponent {
     }
     static get is() { return "image-filter-component"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["image-filter-component.scss", "../../../node_modules/bulma-slider/dist/css/bulma-slider.min.css", "../../../node_modules/bulma-checkradio/dist/css/bulma-checkradio.min.css", "../../../node_modules/@mdi/font/css/materialdesignicons.css"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["image-filter-component.css", "../../../node_modules/bulma-slider/dist/css/bulma-slider.min.css", "../../../node_modules/bulma-checkradio/dist/css/bulma-checkradio.min.css", "../../../node_modules/@mdi/font/css/materialdesignicons.css"]
+    }; }
     static get properties() { return {
-        "componentContainer": {
-            "elementRef": true
-        },
-        "currentElementTag": {
-            "type": String,
-            "attr": "current-element-tag"
+        "src": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "src",
+            "reflect": false
         },
         "filterCallback": {
-            "type": "Any",
-            "attr": "filter-callback"
-        },
-        "filters": {
-            "state": true
-        },
-        "locale": {
-            "type": String,
-            "attr": "locale",
-            "mutable": true,
-            "watchCallbacks": ["listenLocale"]
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "filter-callback",
+            "reflect": false
         },
         "parentComponentContext": {
-            "type": "Any",
-            "attr": "parent-component-context"
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "parent-component-context",
+            "reflect": false
         },
         "parentElementTag": {
-            "type": String,
-            "attr": "parent-element-tag"
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "parent-element-tag",
+            "reflect": false
         },
-        "src": {
-            "type": String,
-            "attr": "src"
+        "currentElementTag": {
+            "type": "string",
+            "mutable": false,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "current-element-tag",
+            "reflect": false
         },
-        "translations": {
-            "state": true
+        "locale": {
+            "type": "string",
+            "mutable": true,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "locale",
+            "reflect": false,
+            "defaultValue": "'pt'"
         }
     }; }
-    static get style() { return "/**style-placeholder:image-filter-component:**/"; }
+    static get states() { return {
+        "filters": {},
+        "translations": {}
+    }; }
+    static get elementRef() { return "componentContainer"; }
+    static get watchers() { return [{
+            "propName": "locale",
+            "methodName": "listenLocale"
+        }]; }
 }

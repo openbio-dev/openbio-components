@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 import WS from '../../utils/websocket';
 import { showImage } from '../../utils/canvas';
 import { setSignature } from '../../store/main.store';
@@ -277,7 +278,7 @@ export class OpenbioSignatureComponentDetails {
         this.payload.action = "close-component";
         this.payload.data = {
             type: "signature",
-            owner: "default-user"
+            owner: "default-user" // #TODO replace this with a authenticated user
         };
         this.ws.respondToDeviceWS(this.payload);
     }
@@ -558,102 +559,128 @@ export class OpenbioSignatureComponentDetails {
     }
     static get is() { return "openbio-signature-details"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["openbio-signature-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["openbio-signature-component.css"]
+    }; }
     static get properties() { return {
-        "anomaly": {
-            "state": true
-        },
-        "anomalyOptions": {
-            "state": true
-        },
-        "backendSession": {
-            "state": true
-        },
-        "brand": {
-            "state": true
-        },
-        "captureDone": {
-            "state": true
-        },
-        "componentContainer": {
-            "elementRef": true
-        },
-        "cropperModal": {
-            "state": true
-        },
         "detached": {
-            "type": Boolean,
-            "attr": "detached",
-            "mutable": true
-        },
-        "deviceOpened": {
-            "state": true
-        },
-        "deviceReady": {
-            "state": true
-        },
-        "deviceStatus": {
-            "state": true
-        },
-        "dpiValue": {
-            "state": true
-        },
-        "isCapturing": {
-            "state": true
+            "type": "boolean",
+            "mutable": true,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "detached",
+            "reflect": false
         },
         "isTagComponent": {
-            "type": Boolean,
-            "attr": "is-tag-component"
-        },
-        "locale": {
-            "type": String,
-            "attr": "locale",
-            "mutable": true,
-            "watchCallbacks": ["listenLocale"]
-        },
-        "model": {
-            "state": true
-        },
-        "originalImage": {
-            "state": true
-        },
-        "points": {
-            "state": true
-        },
-        "rawImage": {
-            "state": true
-        },
-        "serial": {
-            "state": true
-        },
-        "serviceConfigs": {
-            "state": true
-        },
-        "serviceTime": {
-            "state": true
-        },
-        "showLoader": {
-            "state": true
-        },
-        "signature": {
-            "state": true
-        },
-        "tab": {
-            "state": true
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "is-tag-component",
+            "reflect": false
         },
         "tempPerson": {
-            "type": "Any",
-            "attr": "temp-person"
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "temp-person",
+            "reflect": false
         },
         "tempSignature": {
-            "type": "Any",
-            "attr": "temp-signature"
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "temp-signature",
+            "reflect": false
         },
-        "translations": {
-            "state": true
-        },
-        "uploadedBase64": {
-            "state": true
+        "locale": {
+            "type": "string",
+            "mutable": true,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "locale",
+            "reflect": false,
+            "defaultValue": "'pt'"
         }
     }; }
-    static get style() { return "/**style-placeholder:openbio-signature-details:**/"; }
+    static get states() { return {
+        "deviceReady": {},
+        "deviceOpened": {},
+        "originalImage": {},
+        "rawImage": {},
+        "points": {},
+        "dpiValue": {},
+        "tab": {},
+        "anomalyOptions": {},
+        "anomaly": {},
+        "signature": {},
+        "backendSession": {},
+        "showLoader": {},
+        "isCapturing": {},
+        "model": {},
+        "brand": {},
+        "serial": {},
+        "deviceStatus": {},
+        "serviceConfigs": {},
+        "captureDone": {},
+        "serviceTime": {},
+        "cropperModal": {},
+        "uploadedBase64": {},
+        "translations": {}
+    }; }
+    static get elementRef() { return "componentContainer"; }
+    static get watchers() { return [{
+            "propName": "locale",
+            "methodName": "listenLocale"
+        }]; }
 }

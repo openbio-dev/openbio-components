@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 export class LoaderComponent {
     constructor() {
         this.enabled = false;
@@ -26,13 +27,34 @@ export class LoaderComponent {
     }
     static get is() { return "loader-component"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["loader-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["loader-component.css"]
+    }; }
     static get properties() { return {
         "enabled": {
-            "type": Boolean,
-            "attr": "enabled",
+            "type": "boolean",
             "mutable": true,
-            "watchCallbacks": ["listenEnable"]
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "enabled",
+            "reflect": false,
+            "defaultValue": "false"
         }
     }; }
-    static get style() { return "/**style-placeholder:loader-component:**/"; }
+    static get watchers() { return [{
+            "propName": "enabled",
+            "methodName": "listenEnable"
+        }]; }
 }

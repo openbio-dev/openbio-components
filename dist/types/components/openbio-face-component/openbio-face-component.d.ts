@@ -1,5 +1,5 @@
-import '../../stencil.core';
 import WS from '../../utils/websocket';
+import { HTMLStencilElement } from '../../stencil.core';
 export declare class OpenbioFaceComponent {
     ws: WS;
     componentContainer: HTMLStencilElement;
@@ -12,5 +12,5 @@ export declare class OpenbioFaceComponent {
     addCustomLink(url: any): void;
     setI18nParameters(locale: any): Promise<void>;
     componentDidLoad(): void;
-    render(): JSX.Element;
+    render(): any;
 }

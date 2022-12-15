@@ -1,4 +1,4 @@
-import '../../stencil.core';
+import { HTMLStencilElement } from '../../stencil.core';
 interface PreviewSize {
     width: string | number;
     height: string | number;
@@ -19,6 +19,6 @@ export declare class CnhPreviewComponent {
     removeSignatureBackground(): void;
     applyCpfMask(cpf: any): string;
     formatDate(date: any): string;
-    render(): JSX.Element;
+    render(): any;
 }
 export {};

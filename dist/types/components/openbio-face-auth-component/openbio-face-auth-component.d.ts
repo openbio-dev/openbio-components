@@ -1,6 +1,6 @@
-import '../../stencil.core';
 import { EventEmitter } from "../../stencil.core";
 import WS from "../../utils/websocket";
+import { HTMLStencilElement } from "../../stencil.core";
 interface AuthLogBody {
     type?: string;
     cpf?: string;
@@ -51,6 +51,6 @@ export declare class OpenbioFaceAuthComponent {
     takeSnapShot(): void;
     getCaptureText(): any;
     componentDidLoad(): void;
-    render(): JSX.Element;
+    render(): any;
 }
 export {};

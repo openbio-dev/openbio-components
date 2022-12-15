@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 import { notify } from '../../utils/notifier';
 import WS from '../../utils/websocket';
 import { saveSignatureFile } from './api';
@@ -81,28 +82,41 @@ export class OpenbioSignatureComponent {
     }
     static get is() { return "openbio-signature"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["openbio-signature-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["openbio-signature-component.css"]
+    }; }
     static get properties() { return {
-        "captureInput": {
-            "state": true
-        },
-        "componentContainer": {
-            "elementRef": true
-        },
-        "deviceReady": {
-            "state": true
-        },
-        "forceLoadComponent": {
-            "state": true
-        },
         "locale": {
-            "type": String,
-            "attr": "locale",
+            "type": "string",
             "mutable": true,
-            "watchCallbacks": ["listenLocale"]
-        },
-        "translations": {
-            "state": true
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "locale",
+            "reflect": false,
+            "defaultValue": "'pt'"
         }
     }; }
-    static get style() { return "/**style-placeholder:openbio-signature:**/"; }
+    static get states() { return {
+        "deviceReady": {},
+        "forceLoadComponent": {},
+        "captureInput": {},
+        "translations": {}
+    }; }
+    static get elementRef() { return "componentContainer"; }
+    static get watchers() { return [{
+            "propName": "locale",
+            "methodName": "listenLocale"
+        }]; }
 }

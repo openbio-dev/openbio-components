@@ -1,5 +1,5 @@
-import '../../stencil.core';
 import WS from '../../utils/websocket';
+import { HTMLStencilElement } from '../../stencil.core';
 export declare class OpenbioFingerComponent {
     ws: WS;
     private wsStatusInterval;
@@ -135,6 +135,6 @@ export declare class OpenbioFingerComponent {
     loadStepPhaseOnEdit(fingerIndex: number): void;
     forceUpdate(): void;
     setAnomaly(fingerIndex: number, event: any): void;
-    anomaliesSelection(): JSX.Element[];
-    render(): JSX.Element;
+    anomaliesSelection(): any[];
+    render(): any;
 }

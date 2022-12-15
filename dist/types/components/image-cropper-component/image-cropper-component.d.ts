@@ -1,4 +1,4 @@
-import '../../stencil.core';
+import { HTMLStencilElement } from '../../stencil.core';
 export declare class ImageCropperComponent {
     componentContainer: HTMLStencilElement;
     aspectRatio: any;
@@ -18,5 +18,5 @@ export declare class ImageCropperComponent {
     componentDidLoad(): void;
     crop(): any;
     segmentCheckInput(): void;
-    render(): JSX.Element;
+    render(): any;
 }

@@ -1,5 +1,7 @@
+import { h } from '@stencil/core';
 import WS from '../../utils/websocket';
 import { TranslationUtils } from '../../locales/translation';
+// import { setMugshot } from '../../store/main.store';
 import { getCameraSettingsOptions, getCameraSettings, saveCameraSettings, saveMugshotPhoto, deleteMugshotPhoto, getFaceSettings, } from "./api";
 import { showImage } from '../../utils/canvas';
 import { notify } from '../../utils/notifier';
@@ -18,6 +20,7 @@ var tabs;
 export class OpenbioMugshotComponentDetails {
     constructor() {
         this.ws = new WS();
+        // private gammaTables: number;
         this.person = {
             id: 0
         };
@@ -193,6 +196,7 @@ export class OpenbioMugshotComponentDetails {
             this.autoCapture = false;
             this.segmentation = false;
             if (this.detached && this.isTagComponent) {
+                // Not implemented
             }
             if (this.detached) {
                 this.emitLoadInformation();
@@ -250,6 +254,7 @@ export class OpenbioMugshotComponentDetails {
                     const previousStatus = JSON.parse(JSON.stringify(this.deviceStatus));
                     this.deviceStatus = deviceStatuses.face && deviceStatuses.face.initialized;
                     if (!this.deviceStatus) {
+                        // notify(this.componentContainer, "error", "Dispositivo desconectado!");
                         return;
                     }
                     else if (!previousStatus && this.deviceStatus) {
@@ -506,7 +511,7 @@ export class OpenbioMugshotComponentDetails {
         this.payload.action = "close-component";
         this.payload.data = {
             type: "mugshot",
-            owner: "default-user"
+            owner: "default-user" // #TODO replace this with a authenticated user
         };
         this.ws.respondToDeviceWS(this.payload);
     }
@@ -731,174 +736,168 @@ export class OpenbioMugshotComponentDetails {
     }
     static get is() { return "openbio-mugshot-details"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["openbio-mugshot-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["openbio-mugshot-component.css"]
+    }; }
     static get properties() { return {
-        "allowConfiguration": {
-            "type": "Any",
-            "attr": "allow-configuration"
-        },
-        "anomaly": {
-            "state": true
-        },
-        "anomalyOptions": {
-            "state": true
-        },
-        "aperture": {
-            "state": true
-        },
-        "autoCapture": {
-            "state": true
-        },
-        "backendSession": {
-            "state": true
-        },
-        "brand": {
-            "state": true
-        },
-        "cameraPresetOptions": {
-            "state": true
-        },
-        "cameraSettingsOptions": {
-            "state": true
-        },
-        "capturedData": {
-            "state": true
-        },
-        "centerLineLocationRatio": {
-            "state": true
-        },
-        "componentContainer": {
-            "elementRef": true
-        },
-        "crop": {
-            "state": true
-        },
-        "croppedImage": {
-            "state": true
-        },
         "detached": {
-            "type": Boolean,
-            "attr": "detached"
-        },
-        "deviceReady": {
-            "state": true
-        },
-        "deviceStatus": {
-            "state": true
-        },
-        "eyeAxisLocationRatio": {
-            "state": true
-        },
-        "eyeAxysAngle": {
-            "state": true
-        },
-        "eyeSeparation": {
-            "state": true
-        },
-        "flashCharge": {
-            "state": true
-        },
-        "flashProperty": {
-            "state": true
-        },
-        "flashWidth": {
-            "state": true
-        },
-        "imageFormat": {
-            "state": true
-        },
-        "isCapturing": {
-            "state": true
-        },
-        "isoValue": {
-            "state": true
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "detached",
+            "reflect": false
         },
         "isTagComponent": {
-            "type": Boolean,
-            "attr": "is-tag-component"
-        },
-        "locale": {
-            "type": String,
-            "attr": "locale",
-            "mutable": true,
-            "watchCallbacks": ["listenLocale"]
-        },
-        "model": {
-            "state": true
-        },
-        "mugshotDescription": {
-            "state": true
-        },
-        "mugshotIndex": {
-            "state": true
-        },
-        "mugshotPhotos": {
-            "state": true
-        },
-        "originalImage": {
-            "state": true
-        },
-        "poseAnglePitch": {
-            "state": true
-        },
-        "poseAngleYaw": {
-            "state": true
-        },
-        "preset": {
-            "state": true
-        },
-        "rawImage": {
-            "state": true
-        },
-        "rightOrLeftEyeClosed": {
-            "state": true
-        },
-        "segmentation": {
-            "state": true
-        },
-        "segmentedImage": {
-            "state": true
-        },
-        "serial": {
-            "state": true
-        },
-        "serviceConfigs": {
-            "state": true
-        },
-        "serviceTime": {
-            "state": true
-        },
-        "showCameraConfiguration": {
-            "state": true
-        },
-        "showLoader": {
-            "state": true
-        },
-        "shutterSpeed": {
-            "state": true
-        },
-        "tab": {
-            "state": true
-        },
-        "tempMugshotPhotos": {
-            "type": "Any",
-            "attr": "temp-mugshot-photos"
+            "type": "boolean",
+            "mutable": false,
+            "complexType": {
+                "original": "boolean",
+                "resolved": "boolean",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "is-tag-component",
+            "reflect": false
         },
         "tempPerson": {
-            "type": "Any",
-            "attr": "temp-person"
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "temp-person",
+            "reflect": false
         },
-        "track": {
-            "state": true
+        "tempMugshotPhotos": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "temp-mugshot-photos",
+            "reflect": false
         },
-        "translations": {
-            "state": true
+        "allowConfiguration": {
+            "type": "any",
+            "mutable": false,
+            "complexType": {
+                "original": "any",
+                "resolved": "any",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "allow-configuration",
+            "reflect": false
         },
-        "video": {
-            "state": true
-        },
-        "whiteBalance": {
-            "state": true
+        "locale": {
+            "type": "string",
+            "mutable": true,
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "locale",
+            "reflect": false,
+            "defaultValue": "'pt'"
         }
     }; }
-    static get style() { return "/**style-placeholder:openbio-mugshot-details:**/"; }
+    static get states() { return {
+        "capturedData": {},
+        "deviceReady": {},
+        "eyeAxisLocationRatio": {},
+        "centerLineLocationRatio": {},
+        "eyeSeparation": {},
+        "poseAnglePitch": {},
+        "eyeAxysAngle": {},
+        "poseAngleYaw": {},
+        "rightOrLeftEyeClosed": {},
+        "originalImage": {},
+        "croppedImage": {},
+        "segmentedImage": {},
+        "rawImage": {},
+        "crop": {},
+        "segmentation": {},
+        "autoCapture": {},
+        "flashCharge": {},
+        "mugshotIndex": {},
+        "mugshotDescription": {},
+        "mugshotPhotos": {},
+        "cameraSettingsOptions": {},
+        "tab": {},
+        "anomalyOptions": {},
+        "anomaly": {},
+        "backendSession": {},
+        "showLoader": {},
+        "flashProperty": {},
+        "flashWidth": {},
+        "aperture": {},
+        "shutterSpeed": {},
+        "imageFormat": {},
+        "isoValue": {},
+        "whiteBalance": {},
+        "isCapturing": {},
+        "model": {},
+        "brand": {},
+        "serial": {},
+        "video": {},
+        "track": {},
+        "serviceConfigs": {},
+        "deviceStatus": {},
+        "showCameraConfiguration": {},
+        "serviceTime": {},
+        "translations": {},
+        "cameraPresetOptions": {},
+        "preset": {}
+    }; }
+    static get elementRef() { return "componentContainer"; }
+    static get watchers() { return [{
+            "propName": "locale",
+            "methodName": "listenLocale"
+        }]; }
 }

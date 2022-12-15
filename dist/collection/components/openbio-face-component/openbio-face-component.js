@@ -1,3 +1,4 @@
+import { h } from '@stencil/core';
 import WS from '../../utils/websocket';
 import { TranslationUtils } from '../../locales/translation';
 export class OpenbioFaceComponent {
@@ -55,25 +56,40 @@ export class OpenbioFaceComponent {
     }
     static get is() { return "openbio-face"; }
     static get encapsulation() { return "shadow"; }
+    static get originalStyleUrls() { return {
+        "$": ["openbio-face-component.scss"]
+    }; }
+    static get styleUrls() { return {
+        "$": ["openbio-face-component.css"]
+    }; }
     static get properties() { return {
-        "componentContainer": {
-            "elementRef": true
-        },
-        "deviceReady": {
-            "state": true
-        },
-        "forceLoadComponent": {
-            "state": true
-        },
         "locale": {
-            "type": String,
-            "attr": "locale",
+            "type": "string",
             "mutable": true,
-            "watchCallbacks": ["listenLocale"]
-        },
-        "translations": {
-            "state": true
+            "complexType": {
+                "original": "string",
+                "resolved": "string",
+                "references": {}
+            },
+            "required": false,
+            "optional": false,
+            "docs": {
+                "tags": [],
+                "text": ""
+            },
+            "attribute": "locale",
+            "reflect": false,
+            "defaultValue": "'pt'"
         }
     }; }
-    static get style() { return "/**style-placeholder:openbio-face:**/"; }
+    static get states() { return {
+        "deviceReady": {},
+        "forceLoadComponent": {},
+        "translations": {}
+    }; }
+    static get elementRef() { return "componentContainer"; }
+    static get watchers() { return [{
+            "propName": "locale",
+            "methodName": "listenLocale"
+        }]; }
 }

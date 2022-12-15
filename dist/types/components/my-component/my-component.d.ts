@@ -1,4 +1,3 @@
-import '../../stencil.core';
 export declare class MyComponent {
     /**
      * The first name
@@ -13,5 +12,5 @@ export declare class MyComponent {
      */
     last: string;
     private getText;
-    render(): JSX.Element;
+    render(): any;
 }
