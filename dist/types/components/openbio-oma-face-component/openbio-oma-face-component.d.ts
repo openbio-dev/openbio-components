@@ -5,6 +5,7 @@ interface ICapturedImage {
     file: File;
 }
 export declare class OpenbioFaceOmaComponent {
+    private DEBUG;
     private MODEL_URL;
     private defaultWidth;
     private defaultHeight;
@@ -12,7 +13,7 @@ export declare class OpenbioFaceOmaComponent {
     recordId: string;
     requestKey: string;
     token: string;
-    livenessMin: number;
+    livenessMin: any;
     allowNoncomplianceRecordUpdate: boolean;
     allowLivenessNoncompliance: boolean;
     locale: string;
@@ -37,10 +38,14 @@ export declare class OpenbioFaceOmaComponent {
     videoSettings: any;
     selectedDevice: any;
     currentStream: any;
+    isMobile: boolean;
+    mobileCameraStartControl: number;
     listenLocale(newValue: string): Promise<void>;
     setI18nParameters(locale: any): Promise<void>;
     addCustomLink(url: string): void;
     componentWillLoad(): Promise<void>;
+    checkMobile(): boolean;
+    showHelpModal(): any;
     componentDidLoad(): void;
     screenUpdate(): void;
     startFaceApi(): void;
