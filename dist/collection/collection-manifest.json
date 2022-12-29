@@ -1,7 +1,7 @@
 {
   "entries": [
-    "components\\help-component\\help-component.js",
     "components\\cnh-preview-component\\cnh-preview-component.js",
+    "components\\help-component\\help-component.js",
     "components\\image-cropper-component\\image-cropper-component.js",
     "components\\image-filter-component\\image-filter-component.js",
     "components\\image-segmentation-adjustment-component\\image-segmentation-adjustment-component.js",
