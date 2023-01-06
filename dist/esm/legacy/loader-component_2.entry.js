@@ -375,10 +375,10 @@ var OpenbioFaceOmaComponent = /** @class */ (function () {
                                                     boxColor: 'red',
                                                 };
                                                 if (isInside) {
-                                                    alertType = box.width > 250 || (box.width < 125) ? -1 :
-                                                        box.width < 195 && box.width > 125 ? 0 : 1;
+                                                    alertType = box.width > 250 || box.width < 125 ? -1 :
+                                                        box.width > 125 && box.width < 185 ? 0 : 1;
                                                     drawOptions.boxColor = alertType === -1 ? 'red' : alertType === 0 ? 'yellow' : 'green';
-                                                    drawOptions.label = alertType === -1 ? 'Muito distante' : alertType === 0 ? 'Levemente afastado' : 'Posição OK';
+                                                    drawOptions.label = alertType === -1 ? 'Muito distante' : alertType === 0 ? 'Aproxime-se da câmera' : 'Posição OK';
                                                     if (alertType === 0) {
                                                         drawOptions.drawLabelOptions = {
                                                             fontColor: 'black'
