@@ -102,12 +102,36 @@ export class OpenbioFaceOmaComponent {
             confirmButtonText: 'Entendi',
         });
     }
+    checkMobileBrowser() {
+        const toMatch = [
+            /Mozilla/i,
+            /AppleWebKit/i,
+            /Chrome/i,
+            /Safari/i,
+        ];
+        return toMatch.some((toMatchItem) => {
+            return navigator.userAgent.match(toMatchItem);
+        });
+    }
     componentDidLoad() {
         this.getDeviceList();
-        this.isMobile = this.checkMobile();
+        this.isMobile = true; // this.checkMobile();
+        this.showHelpModal();
         if (this.isMobile) {
-            this.showHelpModal();
-            this.startCamera();
+            const isFactoryBrowser = this.checkMobileBrowser();
+            if (isFactoryBrowser) {
+                return Swal.fire({
+                    type: 'warning',
+                    title: 'Navegador incompatível',
+                    text: 'A captura facial requer o uso de navegadores como Google Chrome ou Mozilla Firefox',
+                    showCloseButton: false,
+                    confirmButtonColor: this.primaryColor || '#0D3F56',
+                    confirmButtonText: 'Entendi',
+                });
+            }
+            else {
+                this.startCamera();
+            }
         }
         else {
             this.startFaceApi();
