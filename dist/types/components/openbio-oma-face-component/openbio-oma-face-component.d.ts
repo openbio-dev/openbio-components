@@ -46,7 +46,8 @@ export declare class OpenbioFaceOmaComponent {
     componentWillLoad(): Promise<void>;
     checkMobile(): boolean;
     showHelpModal(): any;
-    checkMobileBrowser(): boolean;
+    getBrowser(): any;
+    checkMobileBrowser(): any;
     componentDidLoad(): any;
     screenUpdate(): void;
     startFaceApi(): void;

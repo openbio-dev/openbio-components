@@ -9843,24 +9843,42 @@ var OpenbioFaceOmaComponent = /** @class */ (function () {
             confirmButtonText: 'Entendi',
         });
     };
+    OpenbioFaceOmaComponent.prototype.getBrowser = function () {
+        var userAgent = navigator.userAgent;
+        var match = userAgent.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+        var temp;
+        if (/trident/i.test(match[1])) {
+            temp = /\brv[ :]+(\d+)/g.exec(userAgent) || [];
+            return "IE " + (temp[1] || '');
+        }
+        if (match[1] === 'Chrome') {
+            temp = userAgent.match(/\b(OPR|Edge)\/(\d+)/);
+            if (temp !== null) {
+                return temp.slice(1).join(' ').replace('OPR', 'Opera');
+            }
+            temp = userAgent.match(/\b(Edg)\/(\d+)/);
+            if (temp !== null) {
+                return temp.slice(1).join(' ').replace('Edg', 'Edge (Chromium)');
+            }
+        }
+        match = match[2] ? [match[1], match[2]] : [navigator.appName, navigator.appVersion, '-?'];
+        temp = userAgent.match(/version\/(\d+)/i);
+        if (temp !== null) {
+            match.splice(1, 1, temp[1]);
+        }
+        return match.join(' ');
+    };
     OpenbioFaceOmaComponent.prototype.checkMobileBrowser = function () {
-        var toMatch = [
-            /Mozilla/i,
-            /AppleWebKit/i,
-            /Chrome/i,
-            /Safari/i,
-        ];
-        return toMatch.some(function (toMatchItem) {
-            return navigator.userAgent.match(toMatchItem);
-        });
+        var browser = this.getBrowser();
+        return browser.includes('Chrome') || browser.includes('Firefox');
     };
     OpenbioFaceOmaComponent.prototype.componentDidLoad = function () {
         this.getDeviceList();
-        this.isMobile = true; // this.checkMobile();
+        this.isMobile = this.checkMobile();
         this.showHelpModal();
         if (this.isMobile) {
             var isFactoryBrowser = this.checkMobileBrowser();
-            if (isFactoryBrowser) {
+            if (!isFactoryBrowser) {
                 return sweetalert2_all_min.fire({
                     type: 'warning',
                     title: 'Navegador incompatível',
